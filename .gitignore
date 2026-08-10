@@ -1,0 +1,11 @@
+PvrSDK-Native-release.aar
+*.apk
+*.aab
+*.jks
+*.keystore
+mapping.txt
+build/
+logs/
+glean-wheels/
+.gradle/
+local.properties
