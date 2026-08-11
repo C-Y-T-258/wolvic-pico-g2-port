@@ -40,3 +40,25 @@ device input-method issue.
   a full device reboot restored both tested HLS playback paths. This is not
   claimed as an application-level permanent fix.
 - The unsigned release APK has not been installed or device-tested.
+
+## Signed internal-test build
+
+A later release build was signed with a dedicated local release key and
+accepted by the PICO developer console's signature check:
+
+```text
+Application ID: io.github.cyt258.wolvic.picog2
+Version name:   1.6.2
+Version code:   202230230
+APK SHA256:     C4B45E0B9F5A918E2ADFB4B9426C498FBF0FCCB63874919AC05FCF3035A293B0
+Signer SHA256:  BF5F5C2FCEC33738A6075C206872C22635963165B4089372FAEB3D4B9360BA54
+Signature:      APK Signature Scheme v2
+```
+
+The signed APK and R8 mapping remain local-only. They are not repository
+artifacts and are not licensed for redistribution by this project.
+
+The PICO console recognized the build as a 3DoF application for `PICO G2 4k`.
+Only controller support is declared; hand tracking, body tracking, eye
+tracking, facial expression, Avatar and mixed-reality features are not
+claimed.

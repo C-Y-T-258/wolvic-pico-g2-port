@@ -26,6 +26,7 @@ Device testing is still required.
   applies the patch and builds one variant
 - `docs/PICO_SDK.md`: SDK checksum and redistribution boundary
 - `docs/VERIFICATION.md`: verified build/device results and remaining limits
+- `docs/PICO_ALPHA.md`: internal-test metadata and Pico G2 distribution limit
 
 ## Build
 
@@ -63,3 +64,11 @@ Pico:
 
 The patch and Wolvic-derived source files are provided under MPL-2.0. Third
 party components keep their own licenses.
+
+## Current release state
+
+A separately signed `1.6.2` build has passed PICO's APK signature check and is
+registered in a private Alpha channel for `PICO G2 4k`. The APK is not attached
+to this repository because it embeds the legacy Pico SDK. PICO's current test
+channel documentation also limits Library-based delivery to Pico Neo3 or newer,
+so the tested G2 still requires an authorized local sideload.
