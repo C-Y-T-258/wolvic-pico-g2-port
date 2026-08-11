@@ -1,5 +1,7 @@
 # Wolvic Pico G2 port (Gecko 128)
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 Source-only patch set for running Wolvic 1.6.2 with its native legacy
 PicoVR backend on Pico G2. This is not the current Wolvic `picoxr`/OpenXR
 backend.
