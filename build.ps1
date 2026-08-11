@@ -28,9 +28,12 @@ param(
 $ErrorActionPreference = 'Stop'
 $expectedBase = '14f4e485d45238908c2c5528fd8eb3a3698b82e7'
 $expectedSdk = 'D3CF54F0A3A20033DACB49B91F14376DB32E8B2B9F5CCA5E8EA72E37892BD53C'
-$patchPath = Join-Path $PSScriptRoot 'patches\0001-wolvic-1.6.2-picog2-gecko128-final-source-only.patch'
+$patchPaths = @(
+    (Join-Path $PSScriptRoot 'patches\0001-wolvic-1.6.2-picog2-gecko128-final-source-only.patch'),
+    (Join-Path $PSScriptRoot 'patches\0002-wait-for-vr-video-surface-resize.patch')
+)
 
-foreach ($path in @($RepoPath, $WorkspaceRoot, $PicoSdkAar, $JavaHome, $GradleBat, $AndroidSdk, $NdkPath, $patchPath)) {
+foreach ($path in @($RepoPath, $WorkspaceRoot, $PicoSdkAar, $JavaHome, $GradleBat, $AndroidSdk, $NdkPath) + $patchPaths) {
     if (-not (Test-Path -LiteralPath $path)) {
         throw "Required path does not exist: $path"
     }
@@ -51,15 +54,18 @@ if ($LASTEXITCODE -ne 0) {
     throw 'Submodule initialization failed'
 }
 
-$picoSource = Join-Path $RepoPath 'app\src\picovr'
-if (-not (Test-Path -LiteralPath $picoSource)) {
+foreach ($patchPath in $patchPaths) {
+    & git -C $RepoPath apply --reverse --check $patchPath 2>$null
+    if ($LASTEXITCODE -eq 0) {
+        continue
+    }
     & git -C $RepoPath apply --check $patchPath
     if ($LASTEXITCODE -ne 0) {
-        throw 'Patch preflight failed; use a clean v1.6.2 checkout'
+        throw "Patch preflight failed: $patchPath"
     }
     & git -C $RepoPath apply $patchPath
     if ($LASTEXITCODE -ne 0) {
-        throw 'Patch application failed'
+        throw "Patch application failed: $patchPath"
     }
 }
 

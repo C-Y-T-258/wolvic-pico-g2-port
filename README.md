@@ -21,7 +21,9 @@ Device testing is still required.
 
 ## Files
 
-- `patches/0001-...source-only.patch`: cumulative patch against `v1.6.2`
+- `patches/0001-...source-only.patch`: cumulative Pico G2 port patch against `v1.6.2`
+- `patches/0002-...surface-resize.patch`: waits for the resized Surface before
+  creating the VR video projection
 - `build.ps1`: checks prerequisites, stages a locally obtained Pico SDK AAR,
   applies the patch and builds one variant
 - `docs/PICO_SDK.md`: SDK checksum and redistribution boundary
