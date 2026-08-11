@@ -1,0 +1,136 @@
+diff --git a/app/src/common/shared/com/igalia/wolvic/ui/widgets/WindowWidget.java b/app/src/common/shared/com/igalia/wolvic/ui/widgets/WindowWidget.java
+index 6b78a80..cd55e75 100644
+--- a/app/src/common/shared/com/igalia/wolvic/ui/widgets/WindowWidget.java
++++ b/app/src/common/shared/com/igalia/wolvic/ui/widgets/WindowWidget.java
+@@ -126,10 +126,13 @@ public class WindowWidget extends UIWidget implements SessionChangeListener,
+     private ContextMenuWidget mContextMenu;
+     private SelectionActionWidget mSelectionMenu;
+     private int mWidthBackup;
+     private int mHeightBackup;
+     private int mBorderWidth;
++    private int mPendingVRVideoSurfaceWidth;
++    private int mPendingVRVideoSurfaceHeight;
++    private Runnable mPendingVRVideoSurfaceCallback;
+     private Runnable mFirstDrawCallback;
+     private boolean mIsInVRVideoMode;
+     private View mView;
+     private Session mSession;
+     private int mWindowId;
+@@ -583,31 +586,60 @@ public class WindowWidget extends UIWidget implements SessionChangeListener,
+ 
+         callSurfaceChanged();
+     }
+ 
+     public void enableVRVideoMode(int aVideoWidth, int aVideoHeight, boolean aResetBorder) {
++        enableVRVideoMode(aVideoWidth, aVideoHeight, aResetBorder, null);
++    }
++
++    public void enableVRVideoMode(int aVideoWidth, int aVideoHeight, boolean aResetBorder,
++                                  @Nullable Runnable aSurfaceReadyCallback) {
+         if (!mIsInVRVideoMode) {
+             mWidthBackup = mWidth;
+             mHeightBackup = mHeight;
+             mIsInVRVideoMode = true;
+         }
+         boolean borderChanged = aResetBorder && mBorderWidth > 0;
+         if (aVideoWidth == mWidth && aVideoHeight == mHeight && !borderChanged) {
++            if (aSurfaceReadyCallback != null) {
++                post(aSurfaceReadyCallback);
++            }
+             return;
+         }
+         if (aResetBorder) {
+             mBorderWidth = 0;
+         }
+         mWidgetPlacement.width = aVideoWidth + mBorderWidth * 2;
+         mWidgetPlacement.height = aVideoHeight + mBorderWidth * 2;
++        mPendingVRVideoSurfaceWidth = mWidgetPlacement.textureWidth();
++        mPendingVRVideoSurfaceHeight = mWidgetPlacement.textureHeight();
++        mPendingVRVideoSurfaceCallback = aSurfaceReadyCallback;
++        Log.i(LOGTAG, "VR video resize requested: video=" + aVideoWidth + "x" + aVideoHeight
++                + " surface=" + mPendingVRVideoSurfaceWidth + "x" + mPendingVRVideoSurfaceHeight
++                + " current=" + mSurfaceWidth + "x" + mSurfaceHeight);
+         mWidgetManager.updateWidget(this);
++        mWidgetManager.updateVisibleWidgets();
+ 
+         mViewModel.setWidth(mWidgetPlacement.width);
+         mViewModel.setHeight(mWidgetPlacement.height);
++        maybeCompleteVRVideoSurfaceResize();
++    }
++
++    private void maybeCompleteVRVideoSurfaceResize() {
++        if (mPendingVRVideoSurfaceCallback == null ||
++                mSurfaceWidth != mPendingVRVideoSurfaceWidth ||
++                mSurfaceHeight != mPendingVRVideoSurfaceHeight) {
++            return;
++        }
++        Runnable callback = mPendingVRVideoSurfaceCallback;
++        mPendingVRVideoSurfaceCallback = null;
++        Log.i(LOGTAG, "VR video surface ready: " + mSurfaceWidth + "x" + mSurfaceHeight);
++        post(callback);
+     }
+ 
+     public void disableVRVideoMode() {
++        mPendingVRVideoSurfaceCallback = null;
+         if (!mIsInVRVideoMode || mWidthBackup == 0 || mHeightBackup == 0) {
+             return;
+         }
+         mIsInVRVideoMode = false;
+ 
+@@ -618,10 +650,11 @@ public class WindowWidget extends UIWidget implements SessionChangeListener,
+         }
+         mBorderWidth = border;
+         mWidgetPlacement.width = mWidthBackup;
+         mWidgetPlacement.height = mHeightBackup;
+         mWidgetManager.updateWidget(this);
++        mWidgetManager.updateVisibleWidgets();
+ 
+         mViewModel.setWidth(mWidgetPlacement.width);
+         mViewModel.setHeight(mWidgetPlacement.height);
+     }
+ 
+@@ -823,10 +856,11 @@ public class WindowWidget extends UIWidget implements SessionChangeListener,
+         }
+ 
+         if (mTexture != null && mSurface != null && mView == null) {
+             callSurfaceChanged();
+         }
++        maybeCompleteVRVideoSurfaceResize();
+     }
+ 
+     @Override
+     public int getHandle() {
+         return mHandle;
+diff --git a/app/src/common/shared/com/igalia/wolvic/ui/widgets/NavigationBarWidget.java b/app/src/common/shared/com/igalia/wolvic/ui/widgets/NavigationBarWidget.java
+index 68758c0..f1b57fc 100644
+--- a/app/src/common/shared/com/igalia/wolvic/ui/widgets/NavigationBarWidget.java
++++ b/app/src/common/shared/com/igalia/wolvic/ui/widgets/NavigationBarWidget.java
+@@ -931,11 +931,10 @@ public class NavigationBarWidget extends UIWidget implements WSession.Navigation
+             mediaWidth = mAttachedWindow.getWindowWidth();
+             mediaHeight = mAttachedWindow.getWindowHeight();
+         }
+         final boolean resetBorder = aProjection == VideoProjectionMenuWidget.VIDEO_PROJECTION_360 ||
+                 aProjection == VideoProjectionMenuWidget.VIDEO_PROJECTION_360_STEREO;
+-        mAttachedWindow.enableVRVideoMode(mediaWidth, mediaHeight, resetBorder);
+         // Handle video resize while in VR video playback
+         if (mFullScreenMedia != null) {
+             mFullScreenMedia.setResizeDelegate((width, height) -> {
+                 mAttachedWindow.enableVRVideoMode(width, height, resetBorder);
+             });
+@@ -960,11 +959,15 @@ public class NavigationBarWidget extends UIWidget implements WSession.Navigation
+         mMediaControlsWidget.setMedia(mFullScreenMedia);
+         mMediaControlsWidget.setParentWidget(mAttachedWindow.getHandle());
+         mMediaControlsWidget.setProjectionSelectorEnabled(true);
+         mAttachedWindow.reCenterFrontWindow();
+         mWidgetManager.updateWidget(mMediaControlsWidget);
+-        mWidgetManager.showVRVideo(mAttachedWindow.getHandle(), aProjection);
++        mAttachedWindow.enableVRVideoMode(mediaWidth, mediaHeight, resetBorder, () -> {
++            if (mViewModel.getIsInVRVideo().getValue().get()) {
++                mWidgetManager.showVRVideo(mAttachedWindow.getHandle(), aProjection);
++            }
++        });
+     }
+ 
+     private void exitVRVideo() {
+         if (!mViewModel.getIsInVRVideo().getValue().get()) {
+             return;

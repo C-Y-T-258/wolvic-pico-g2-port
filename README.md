@@ -1,5 +1,7 @@
 # Wolvic Pico G2 port (Gecko 128)
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 Source-only patch set for running Wolvic 1.6.2 with its native legacy
 PicoVR backend on Pico G2. This is not the current Wolvic `picoxr`/OpenXR
 backend.
@@ -21,11 +23,14 @@ Device testing is still required.
 
 ## Files
 
-- `patches/0001-...source-only.patch`: cumulative patch against `v1.6.2`
+- `patches/0001-...source-only.patch`: cumulative Pico G2 port patch against `v1.6.2`
+- `patches/0002-...surface-resize.patch`: waits for the resized Surface before
+  creating the VR video projection
 - `build.ps1`: checks prerequisites, stages a locally obtained Pico SDK AAR,
   applies the patch and builds one variant
 - `docs/PICO_SDK.md`: SDK checksum and redistribution boundary
 - `docs/VERIFICATION.md`: verified build/device results and remaining limits
+- `docs/PICO_ALPHA.md`: internal-test metadata and Pico G2 distribution limit
 
 ## Build
 
@@ -63,3 +68,13 @@ Pico:
 
 The patch and Wolvic-derived source files are provided under MPL-2.0. Third
 party components keep their own licenses.
+
+## Current release state
+
+A separately signed `1.6.2` build has passed PICO's APK signature check and is
+registered in a private Alpha channel for `PICO G2 4k`. The device-tested
+`0038` APK is available as an explicitly unofficial GitHub prerelease. It
+contains the legacy Pico runtime; downloading the APK does not grant permission
+to extract or redistribute that SDK separately. PICO's current test channel
+documentation limits Library-based delivery to Pico Neo3 or newer, so the
+tested G2 still requires an authorized local sideload.

@@ -20,3 +20,18 @@ The v1.3.3 mirror used during research was commit
 `418d31425e3873749bbd6a7cb97641635df6e398` of
 `lovr-org/pico_native_sdk`. This identifies the audited source; it is not an
 instruction to republish the SDK.
+
+## GitHub binary precedents
+
+Igalia's official Wolvic releases publish complete APKs, including PicoXR
+variants such as `Wolvic-picoxr-arm64-gecko-generic-release.apk`. A third-party
+fork, `LearnHub/wolvic`, has also published a custom device build as an APK.
+These examples establish that GitHub Releases can host Wolvic binaries; they do
+not establish that an unrelated distributor has rights to every bundled vendor
+SDK. Igalia may have vendor agreements that do not transfer to forks, and a
+third party's upload is not a license grant.
+
+This repository's `0038` APK is therefore labeled as an unofficial prerelease.
+It does not include the standalone Pico AAR, headers, mapping file, signing key
+or build logs. Users must have authorization to use the legacy Pico runtime,
+and must not extract or redistribute the SDK separately.
