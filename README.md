@@ -70,7 +70,9 @@ party components keep their own licenses.
 ## Current release state
 
 A separately signed `1.6.2` build has passed PICO's APK signature check and is
-registered in a private Alpha channel for `PICO G2 4k`. The APK is not attached
-to this repository because it embeds the legacy Pico SDK. PICO's current test
-channel documentation also limits Library-based delivery to Pico Neo3 or newer,
-so the tested G2 still requires an authorized local sideload.
+registered in a private Alpha channel for `PICO G2 4k`. The device-tested
+`0038` APK is available as an explicitly unofficial GitHub prerelease. It
+contains the legacy Pico runtime; downloading the APK does not grant permission
+to extract or redistribute that SDK separately. PICO's current test channel
+documentation limits Library-based delivery to Pico Neo3 or newer, so the
+tested G2 still requires an authorized local sideload.
