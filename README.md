@@ -46,7 +46,34 @@ It has not been validated on Pico Neo, Pico 4, G3, Quest, phone-style Android
 devices or current OpenXR runtimes. Use the official Wolvic builds for current
 headsets.
 
-## Install with ADB
+## Installation options
+
+### Install directly on the headset
+
+You can try downloading the APK from the release page in a browser on the
+Pico G2 itself. After the download finishes, open the APK from Downloads, the
+system file manager or an installed APK/package manager and confirm the
+installation.
+
+The headset may ask you to allow installation from unknown sources for the
+browser or package manager that opens the file. Only grant that permission if
+you trust the downloaded APK and have verified its SHA256.
+
+### Copy the APK to the headset, then install it
+
+You can also download the APK on a computer, verify it there, and transfer it
+to the headset's internal storage by USB/MTP, a trusted file-transfer tool, or
+ADB:
+
+```powershell
+adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Download/
+```
+
+Then open the copied APK from the headset's Downloads folder with its package
+manager. This uses Android's on-device installer; it does not require the
+`adb install` command.
+
+### Install directly with ADB
 
 1. Enable developer/USB debugging on a Pico G2 that you are authorized to
    manage.
@@ -76,12 +103,20 @@ For a specific device among multiple ADB targets, add `-s SERIAL` after `adb`.
 
 ## Using WebXR video
 
-1. Open the website in Wolvic and start the video from the normal page first
-   if the site requires a user gesture.
-2. Use the website's fullscreen or immersive-VR control.
-3. Move your head to verify 3DoF tracking. Use the Pico controller ray to
+> **Pornhub and similar VR video sites:** enable Wolvic's **Desktop mode** and
+> reload the page before entering immersive playback. Desktop mode is part of
+> the verified Pico G2 path. Without it, the site may serve its mobile player,
+> expose different controls, or behave like a movable 360-degree video window
+> instead of the intended immersive presentation.
+
+1. For Pornhub-like sites, switch Wolvic to Desktop mode and reload the page.
+2. Start the video from the normal page first if the site requires a user
+   gesture.
+3. Use the website's fullscreen or immersive-VR entry when it becomes
+   available.
+4. Move your head to verify 3DoF tracking. Use the Pico controller ray to
    reveal and operate the player's controls.
-4. Treat these as separate checks: page video playback, fullscreen layout,
+5. Treat these as separate checks: page video playback, fullscreen layout,
    immersive WebXR entry, head tracking, video texture rendering and control
    icon visibility.
 
