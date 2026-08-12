@@ -11,18 +11,19 @@
 这不是 Igalia 或 PICO 官方产品。它使用旧版 PicoVR 原生运行时，不是当前
 Wolvic 的 `picoxr` OpenXR 后端。
 
-## 直接下载
+## 当前版本
 
-经过 Pico G2 实机验证的版本已放在 GitHub prerelease：
-
-**[下载 Wolvic Pico G2 0038 APK](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0038-test)**
+`0052` 是当前完成实机验收的正式构建，源码补丁已在本仓库公开。由于这个社区
+fork 没有取得可公开再分发 legacy PicoVR SDK 运行时的明确书面许可，0052 APK
+不作为 GitHub Release 附件发布。获得授权的测试者可通过 PICO 私有草稿或合规
+的本地传输方式取得。
 
 ```text
-文件：       Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk
+文件：       Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
 包名：       io.github.cyt258.wolvic.picog2
-版本：       1.6.2（versionCode 202231824）
+版本：       1.6.2（versionCode 202242126）
 架构：       arm64-v8a
-SHA256：     1C5847CF21E65BE5CBCE780A06B36B119B588A0E887CEA1690B20575E220BAF1
+SHA256：     CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3
 ```
 
 它使用独立包名，因此可以和 Firefox Reality 共存。以后使用相同签名证书的
@@ -60,7 +61,7 @@ SHA256：     1C5847CF21E65BE5CBCE780A06B36B119B588A0E887CEA1690B20575E220BAF1
 把文件传到设备内部：
 
 ```powershell
-adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Download/
+adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk /sdcard/Download/
 ```
 
 随后在头显的“下载”目录中使用系统安装器或安装包管理器打开 APK。这条路径
@@ -79,13 +80,13 @@ adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Do
 4. 安装前核对下载文件：
 
    ```powershell
-   Get-FileHash .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk -Algorithm SHA256
+   Get-FileHash .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk -Algorithm SHA256
    ```
 
 5. 安装或覆盖升级：
 
    ```powershell
-   adb install -r .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk
+   adb install -r .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
    ```
 
 6. 在头显应用列表打开 **Wolvic Pico G2 测试版**，按需授予浏览、媒体和
@@ -101,10 +102,12 @@ adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Do
 > 只表现为可以随视角移动的 360 度视频窗口，而不是预期的沉浸观影。
 
 1. 对 Pornhub 这类网站，先切换 Wolvic 桌面模式并刷新页面。
-2. 如果网站要求用户手势，先在普通网页中启动视频。
-3. 在入口可用后进入网站提供的全屏或沉浸式 VR 播放。
-4. 转动头部确认 3DoF 跟踪；使用 Pico 手柄射线调出并操作播放控件。
-5. 请分别检查：普通网页播放、全屏比例、沉浸式 WebXR、头部跟踪、视频纹理
+2. 打开扩展中的“VR 视频投影”，调出悬浮菜单。菜单提供网站自动、2D、3D
+   左右/上下、360/360 立体和 180/180 立体左右/上下共九项选择。
+3. 如果网站要求用户手势，先在普通网页中启动视频。
+4. 在入口可用后进入网站提供的全屏或沉浸式 VR 播放。
+5. 转动头部确认 3DoF 跟踪；使用 Pico 手柄射线调出并操作播放控件。
+6. 请分别检查：普通网页播放、全屏比例、沉浸式 WebXR、头部跟踪、视频纹理
    和按钮图标。只成功进入沉浸模式并不等于视频兼容问题已经解决。
 
 本构建已验证 XVideos 普通/全屏播放和 Pornhub VR 沉浸播放。这里仅记录
@@ -118,7 +121,9 @@ adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Do
 - GeckoView 128 的视频/WebGL 纹理渲染
 - Pornhub VR 进入真实沉浸并播放视频
 - Three.js/canvas 播放器控制图标可见
+- Pornhub 页面可调出九项悬浮投影菜单
 - XVideos 普通视频与全屏播放
+- XVideos 播放中切换投影不白屏且可继续播放
 - 未播放直接进入全屏时不再持续裁切右侧和下侧
 - 播放中退出并重新进入全屏后画面正常
 
@@ -155,8 +160,9 @@ adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Do
 ### 播放器图标黑屏或全屏持续裁切
 
 - 检查 `io.github.cyt258.wolvic.picog2` 的 versionCode 是否为
-  `202231824` 或更高。
-- `0038` 同时包含 SVG intrinsic-size 兼容修复和 Surface resize 同步修复。
+  `202242126` 或更高。
+- `0052` 包含已验证的 SVG/canvas 兼容层、投影菜单和正确的早期 Surface
+  resize 顺序。
 
 ### 出现 `INSTALL_FAILED_UPDATE_INCOMPATIBLE`
 
@@ -165,7 +171,7 @@ adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Do
 
 ```powershell
 adb uninstall io.github.cyt258.wolvic.picog2
-adb install .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk
+adb install .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
 ```
 
 ## 回滚
@@ -184,10 +190,9 @@ Firefox Reality 是另一个包，不会被这些命令删除。
 - 在 Wolvic 1.6.2 上恢复 legacy `picovr` product flavor 和 Pico G2 原生
   device delegate。
 - 使用 GeckoView 128，替代 Firefox Reality 使用的 Gecko 81。
-- 增加范围受限的站点兼容层：为缺少 intrinsic dimensions 的 SVG 补齐
-  尺寸，解决 Three.js canvas 控制图标全透明问题。
-- 等待 Android Surface 达到目标尺寸后再创建 VR 视频投影，避免旧几何导致
-  全屏右侧/下侧持续裁切。
+- 增加 Pornhub 范围内的 SVG/canvas 控件兼容层和包含九项选择的悬浮投影菜单。
+- 保留进入 VR 视频时的早期 Surface resize 顺序，只在未播放且确有需要时等待，
+  同时修复持续裁切和切换投影白屏回归。
 
 本项目没有重新实现 Pornhub 播放器，没有把网站资源打包进浏览器，也没有用
 普通 OpenXR 后端冒充 Pico G2 兼容方案。
@@ -208,6 +213,7 @@ Firefox Reality 是另一个包，不会被这些命令删除。
 
 ```powershell
 git clone --branch v1.6.2 --recurse-submodules https://github.com/Igalia/wolvic.git D:\work\wolvic-v1.6.2
+git -C D:\work\wolvic-v1.6.2 config core.autocrlf false
 
 .\build.ps1 `
   -RepoPath D:\work\wolvic-v1.6.2 `
@@ -243,5 +249,5 @@ git clone --branch v1.6.2 --recurse-submodules https://github.com/Igalia/wolvic.
 
 ## 项目状态
 
-`0038` 是当前经过实机验证的候选版本。项目公开报告和补丁以便复现，但它仍
+`0052` 是当前经过实机验收的正式构建，三个源码补丁均已公开以便复现，但它仍
 是面向旧设备的专项移植，不是 Wolvic 官方发行版，也不承诺长期兼容所有网站。

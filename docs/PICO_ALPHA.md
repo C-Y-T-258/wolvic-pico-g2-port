@@ -7,7 +7,7 @@ redistribute the APK.
 ```text
 Application:    Wolvic Pico G2 test build
 Package:        io.github.cyt258.wolvic.picog2
-Version:        1.6.2 (202230230)
+Version:        1.6.2 (202242126)
 Platform:       3DoF
 Target device:  PICO G2 4k
 App type:       Android/mobile application
@@ -16,6 +16,9 @@ Hardening:      Disabled
 Features:       Controller support only
 Signature test: Passed
 ```
+
+The version above is production build `0052`, whose APK SHA256 is
+`CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3`.
 
 English and Simplified Chinese application names, icons and version notes are
 configured. No OBB or additional resource package is used.
