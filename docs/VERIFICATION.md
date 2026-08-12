@@ -38,8 +38,9 @@ Signature:       APK Signature Scheme v2/v3
 
 Static inspection confirmed `libPvr_NativeSDK.so`, `libnative-lib.so` and
 `libxul.so`. The three extension files inside the signed APK match the hashes
-above byte for byte. The signed APK, R8 mapping, SDK and signing materials are
-not committed to this repository.
+above byte for byte. The signed APK is attached to the unofficial 0052 GitHub
+prerelease. The R8 mapping, standalone SDK and signing materials are not
+committed or published.
 
 ## Pico G2 acceptance
 

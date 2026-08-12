@@ -13,10 +13,10 @@ Wolvic 的 `picoxr` OpenXR 后端。
 
 ## 当前版本
 
-`0052` 是当前完成实机验收的正式构建，源码补丁已在本仓库公开。由于这个社区
-fork 没有取得可公开再分发 legacy PicoVR SDK 运行时的明确书面许可，0052 APK
-不作为 GitHub Release 附件发布。获得授权的测试者可通过 PICO 私有草稿或合规
-的本地传输方式取得。
+`0052` 是当前完成实机验收的正式构建，源码补丁和签名 APK 已发布在 GitHub
+prerelease：
+
+**[下载 Wolvic Pico G2 0052 APK](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0052)**
 
 ```text
 文件：       Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
@@ -243,8 +243,8 @@ git -C D:\work\wolvic-v1.6.2 config core.autocrlf false
 
 补丁和 Wolvic 衍生源码采用 MPL-2.0；第三方组件继续适用各自许可。
 
-测试 APK 包含 legacy PicoVR SDK 等第三方运行时组件。下载 APK 不代表获得
-提取或单独再分发 SDK 的许可。不要向仓库提交 Pico AAR、原生 SDK 库、解包
+APK 包含 legacy PicoVR SDK 等第三方运行时组件。下载 prerelease 不代表获得
+提取或单独再分发 SDK 的许可。本仓库不发布独立 Pico AAR、原生 SDK 库、解包
 文件、R8 mapping、签名密钥或凭据。
 
 ## 项目状态
