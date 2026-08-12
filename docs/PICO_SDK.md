@@ -31,7 +31,9 @@ not establish that an unrelated distributor has rights to every bundled vendor
 SDK. Igalia may have vendor agreements that do not transfer to forks, and a
 third party's upload is not a license grant.
 
-This repository's `0038` APK is therefore labeled as an unofficial prerelease.
-It does not include the standalone Pico AAR, headers, mapping file, signing key
-or build logs. Users must have authorization to use the legacy Pico runtime,
-and must not extract or redistribute the SDK separately.
+An older `0038` APK remains as historical evidence in a GitHub prerelease. The
+current `0052` APK is not uploaded to GitHub because this community fork has no
+documented public redistribution grant for the bundled legacy runtime. The
+repository publishes source patches and checksums only. It never includes the
+standalone Pico AAR, headers, native SDK library, mapping, signing key or
+credentials.

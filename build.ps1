@@ -30,7 +30,8 @@ $expectedBase = '14f4e485d45238908c2c5528fd8eb3a3698b82e7'
 $expectedSdk = 'D3CF54F0A3A20033DACB49B91F14376DB32E8B2B9F5CCA5E8EA72E37892BD53C'
 $patchPaths = @(
     (Join-Path $PSScriptRoot 'patches\0001-wolvic-1.6.2-picog2-gecko128-final-source-only.patch'),
-    (Join-Path $PSScriptRoot 'patches\0002-wait-for-vr-video-surface-resize.patch')
+    (Join-Path $PSScriptRoot 'patches\0002-restore-early-vr-video-resize-order.patch'),
+    (Join-Path $PSScriptRoot 'patches\0003-add-pornhub-projection-compatibility-menu.patch')
 )
 
 foreach ($path in @($RepoPath, $WorkspaceRoot, $PicoSdkAar, $JavaHome, $GradleBat, $AndroidSdk, $NdkPath) + $patchPaths) {
@@ -42,6 +43,13 @@ foreach ($path in @($RepoPath, $WorkspaceRoot, $PicoSdkAar, $JavaHome, $GradleBa
 $actualBase = (& git -C $RepoPath rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0 -or $actualBase -ne $expectedBase) {
     throw "Repo HEAD must be Wolvic v1.6.2 ($expectedBase); found $actualBase"
+}
+
+# The verified extension assets intentionally retain their original byte-level
+# line endings. Keep Git from rewriting the patch inputs on Windows.
+& git -C $RepoPath config core.autocrlf false
+if ($LASTEXITCODE -ne 0) {
+    throw 'Failed to configure repository line-ending behavior'
 }
 
 $actualSdk = (Get-FileHash -LiteralPath $PicoSdkAar -Algorithm SHA256).Hash

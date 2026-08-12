@@ -11,18 +11,20 @@ sites that fail on Firefox Reality 12.2 / Gecko 81.
 This is a community test build, not an Igalia or PICO product. It uses the old
 PicoVR native runtime, not the current `picoxr` OpenXR backend.
 
-## Download
+## Current release
 
-The device-tested build is available from the GitHub prerelease:
-
-**[Download Wolvic Pico G2 0038 APK](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0038-test)**
+Build `0052` is the current device-tested production build. Its source patches
+are published here. The APK is not attached to GitHub because this community
+fork does not have documented permission to publicly redistribute the bundled
+legacy PicoVR SDK runtime. Authorized testers can receive it through the
+private PICO draft or a permitted local transfer.
 
 ```text
-File:        Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk
+File:        Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
 Package:     io.github.cyt258.wolvic.picog2
-Version:     1.6.2 (versionCode 202231824)
+Version:     1.6.2 (versionCode 202242126)
 Architecture: arm64-v8a
-SHA256:      1C5847CF21E65BE5CBCE780A06B36B119B588A0E887CEA1690B20575E220BAF1
+SHA256:      CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3
 ```
 
 The APK coexists with Firefox Reality because it uses a different package ID.
@@ -66,7 +68,7 @@ to the headset's internal storage by USB/MTP, a trusted file-transfer tool, or
 ADB:
 
 ```powershell
-adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk /sdcard/Download/
+adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk /sdcard/Download/
 ```
 
 Then open the copied APK from the headset's Downloads folder with its package
@@ -87,13 +89,13 @@ manager. This uses Android's on-device installer; it does not require the
 4. Verify the downloaded file before installing:
 
    ```powershell
-   Get-FileHash .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk -Algorithm SHA256
+   Get-FileHash .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk -Algorithm SHA256
    ```
 
 5. Install or update the app:
 
    ```powershell
-   adb install -r .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk
+   adb install -r .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
    ```
 
 6. Launch **Wolvic Pico G2 Test Build** from the headset and grant the Android
@@ -110,13 +112,16 @@ For a specific device among multiple ADB targets, add `-s SERIAL` after `adb`.
 > instead of the intended immersive presentation.
 
 1. For Pornhub-like sites, switch Wolvic to Desktop mode and reload the page.
-2. Start the video from the normal page first if the site requires a user
+2. Open the browser extension entry named **VR 视频投影** to show the floating
+   projection menu. Choose site automatic, 2D, 3D left/right, 3D top/bottom,
+   360, 360 stereo, 180, 180 stereo left/right or 180 stereo top/bottom.
+3. Start the video from the normal page first if the site requires a user
    gesture.
-3. Use the website's fullscreen or immersive-VR entry when it becomes
+4. Use the website's fullscreen or immersive-VR entry when it becomes
    available.
-4. Move your head to verify 3DoF tracking. Use the Pico controller ray to
+5. Move your head to verify 3DoF tracking. Use the Pico controller ray to
    reveal and operate the player's controls.
-5. Treat these as separate checks: page video playback, fullscreen layout,
+6. Treat these as separate checks: page video playback, fullscreen layout,
    immersive WebXR entry, head tracking, video texture rendering and control
    icon visibility.
 
@@ -133,7 +138,9 @@ updates will remain compatible.
 - GeckoView 128 video/WebGL texture rendering
 - Pornhub VR immersive video playback
 - Visible Three.js/canvas player control icons
+- Pornhub-scoped floating menu with nine projection choices
 - XVideos normal and fullscreen playback
+- XVideos projection switching without a white screen or stalled resume
 - No persistent right/bottom crop when entering fullscreen before playback
 - Correct exit and re-entry to fullscreen while video is playing
 
@@ -175,10 +182,10 @@ textures to work together on the headset.
 
 ### Black player icons or persistent fullscreen crop
 
-- Check that Android reports versionCode `202231824` or newer for
+- Check that Android reports versionCode `202242126` or newer for
   `io.github.cyt258.wolvic.picog2`.
-- Build 0038 contains both the SVG intrinsic-size compatibility fix and the
-  Surface resize synchronization fix.
+- Build 0052 contains the verified SVG/canvas compatibility layer, projection
+  menu and corrected early Surface resize ordering.
 
 ### `INSTALL_FAILED_UPDATE_INCOMPATIBLE`
 
@@ -187,7 +194,7 @@ before uninstalling it. Removing the package deletes that app's local data:
 
 ```powershell
 adb uninstall io.github.cyt258.wolvic.picog2
-adb install .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0038-signed.apk
+adb install .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
 ```
 
 ## Rollback
@@ -207,10 +214,11 @@ and is not removed by these commands.
 - Restores the legacy `picovr` product flavor and native Pico G2 device
   delegate on Wolvic 1.6.2.
 - Uses GeckoView 128 instead of Firefox Reality's Gecko 81.
-- Adds a narrowly scoped site compatibility layer for SVG images whose missing
-  intrinsic dimensions produced transparent Three.js canvas controls.
-- Waits for the Android Surface to reach the requested size before creating
-  the VR video projection, preventing stale-geometry fullscreen cropping.
+- Adds a Pornhub-scoped compatibility layer for SVG/canvas controls and a
+  browser-action floating projection menu with nine choices.
+- Preserves the early VR video resize call order while waiting only where an
+  unplayed Surface actually needs it, fixing both persistent crop and the
+  projection-switch white-screen regression.
 
 The project does not replace Pornhub's player, package website resources into
 the browser, or use a generic OpenXR backend as a substitute for Pico G2
@@ -233,6 +241,7 @@ Required toolchain:
 
 ```powershell
 git clone --branch v1.6.2 --recurse-submodules https://github.com/Igalia/wolvic.git D:\work\wolvic-v1.6.2
+git -C D:\work\wolvic-v1.6.2 config core.autocrlf false
 
 .\build.ps1 `
   -RepoPath D:\work\wolvic-v1.6.2 `
@@ -254,6 +263,7 @@ Never install an unsigned APK. See [Pico SDK dependency](docs/PICO_SDK.md) and
 - `patches/0001-...source-only.patch`: cumulative Pico G2 port patch against
   Wolvic `v1.6.2`
 - `patches/0002-...surface-resize.patch`: Surface/projection ordering fix
+- `patches/0003-...projection-menu.patch`: Pornhub compatibility and floating menu
 - `build.ps1`: prerequisite checks, patch application and isolated build
 - `docs/PICO_SDK.md`: SDK checksum and redistribution boundary
 - `docs/VERIFICATION.md`: build and device evidence
@@ -264,13 +274,13 @@ Never install an unsigned APK. See [Pico SDK dependency](docs/PICO_SDK.md) and
 The patch and Wolvic-derived source files are provided under MPL-2.0.
 Third-party components keep their own licenses.
 
-The test APK contains third-party runtime components, including the legacy
-PicoVR SDK. Downloading it does not grant permission to extract or redistribute
-the SDK separately. Do not commit the Pico AAR, native SDK library, unpacked
-SDK files, R8 mapping, signing keys or credentials to this repository.
+The local test APK contains third-party runtime components, including the
+legacy PicoVR SDK. This repository does not publish the 0052 APK or grant
+permission to redistribute or extract that SDK. Do not commit the Pico AAR,
+native SDK library, unpacked SDK files, R8 mapping, signing keys or credentials.
 
 ## Project status
 
-Build `0038` is the current device-tested candidate. Reports and patches are
-published for reproducibility, but this remains a focused legacy-device port,
+Build `0052` is the current device-tested production build. Its three source
+patches are published for reproducibility, but this remains a focused legacy-device port,
 not an official Wolvic distribution or a promise of long-term website support.

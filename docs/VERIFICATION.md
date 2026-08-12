@@ -1,80 +1,69 @@
 # Verification record
 
-## Build
+## Reproducible source boundary
+
+The public source release is based on Wolvic `v1.6.2`, commit
+`14f4e485d45238908c2c5528fd8eb3a3698b82e7`. Apply the three patches in numeric
+order. The final extension assets must hash to:
+
+```text
+background.js  32F49BE066BA88CACA3253ACAB4A8C624258AB345EAB27286017B18F3D9EE47C
+main.js        04F15F8ED5C96B0174A1835908E03CE627FEC67C306B04165F316E6EEEA5F7AC
+manifest.json  262AFD08A6B0A423841887B03A589C35BCB93E4631C594CC5DB588A7070A5FAC
+```
+
+The patch replay was checked on a clean detached checkout of that commit. The
+legacy Pico SDK is deliberately not part of the public source tree.
+
+## Production build 0052
 
 - JDK 17.0.16
 - Gradle 8.2 / Android Gradle Plugin 8.2.1
 - compileSdk/targetSdk 34, minSdk 24
 - NDK 25.1.8937393, CMake 3.22.1
 - Task: `:app:assemblePicovrArm64GeckoGenericRelease`
-- Result: `BUILD SUCCESSFUL in 2m 46s`
-
-Unsigned release output:
-
-```text
-Size:   115127435 bytes
-SHA256: 365A03C21CCE06605BCC328DB822D7501B19DE8FD723C457BA54BA32338458B1
-Package: com.igalia.wolvic.internal
-ABI: arm64-v8a
-```
-
-`apksigner verify` returns `DOES NOT VERIFY`, as expected. The APK contains
-`libPvr_NativeSDK.so`, `libnative-lib.so`, `libmozglue.so` and `libxul.so`.
-
-## Device
-
-On Pico G2 the debug build was verified to provide native immersive WebXR,
-video playback, 3DoF head tracking and visible Three.js/canvas control icons.
-The previously persistent right/bottom fullscreen clipping was fixed.
-
-The compositor ran at 74-75 Hz and no Wolvic crash/ANR was observed in the
-post-reboot regression. Repeated `com.baidu.input` crashes are a separate
-device input-method issue.
-
-## Remaining limits
-
-- A brief aspect-ratio transition remains during fullscreen enter/exit.
-- ADB 2D touch does not emulate Pico's VR controller ray, so final interaction
-  checks require wearing the headset.
-- A device media/codec resource failure was observed during long test cycles;
-  a full device reboot restored both tested HLS playback paths. This is not
-  claimed as an application-level permanent fix.
-- The unsigned release APK has not been installed or device-tested.
-
-## Signed internal-test build
-
-A later release build was signed with a dedicated local release key and
-accepted by the PICO developer console's signature check:
+- R8, resource shrinking and resource optimization executed
+- Result: `BUILD SUCCESSFUL in 5m 26s`
 
 ```text
-Application ID: io.github.cyt258.wolvic.picog2
-Version name:   1.6.2
-Version code:   202230230
-APK SHA256:     C4B45E0B9F5A918E2ADFB4B9426C498FBF0FCCB63874919AC05FCF3035A293B0
-Signer SHA256:  BF5F5C2FCEC33738A6075C206872C22635963165B4089372FAEB3D4B9360BA54
-Signature:      APK Signature Scheme v2
+File:            Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
+Application ID:  io.github.cyt258.wolvic.picog2
+Version name:    1.6.2
+Version code:    202242126
+ABI:             arm64-v8a only
+APK SHA256:      CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3
+Signer SHA256:   BF5F5C2FCEC33738A6075C206872C22635963165B4089372FAEB3D4B9360BA54
+Signature:       APK Signature Scheme v2/v3
 ```
 
-The final device-tested candidate is build `0038`:
+Static inspection confirmed `libPvr_NativeSDK.so`, `libnative-lib.so` and
+`libxul.so`. The three extension files inside the signed APK match the hashes
+above byte for byte. The signed APK, R8 mapping, SDK and signing materials are
+not committed to this repository.
 
-```text
-Application ID: io.github.cyt258.wolvic.picog2
-Version name:   1.6.2
-Version code:   202231824
-APK SHA256:     1C5847CF21E65BE5CBCE780A06B36B119B588A0E887CEA1690B20575E220BAF1
-Signer SHA256:  BF5F5C2FCEC33738A6075C206872C22635963165B4089372FAEB3D4B9360BA54
-Signature:      APK Signature Scheme v2/v3
-```
+## Pico G2 acceptance
 
-On the tested Pico G2, `0038` passed the unplayed-to-fullscreen path without
-persistent right/bottom clipping, exit/re-enter fullscreen while playing, and
-Pornhub immersive playback with 3DoF head tracking and visible controls.
+The package was installed in place on device `PA7510MGCB120425W`. Its original
+install time was preserved, confirming an upgrade rather than a data-clearing
+reinstall. Cold start succeeded, the built-in extension registered and no
+Wolvic fatal crash or ANR was found in the startup log.
 
-The signed APK and R8 mapping are not committed to the source tree. Binary
-distribution must retain third-party notices and comply with the Pico SDK
-license applicable to the distributor.
+The following headset-visible regression groups passed:
 
-The PICO console recognized the build as a 3DoF application for `PICO G2 4k`.
-Only controller support is declared; hand tracking, body tracking, eye
-tracking, facial expression, Avatar and mixed-reality features are not
-claimed.
+- extension entry and the complete nine-choice Pornhub projection menu;
+- Pornhub regular playback, original player interaction and Desktop-mode
+  immersive playback;
+- XVideos projection switching without white screen or stalled resume;
+- direct fullscreen/immersive entry before playback without persistent crop.
+
+This validates the tested Pico G2 paths, not every VR website, codec or future
+website revision. A short aspect-ratio transition may still appear while
+entering or leaving fullscreen before the final layout settles.
+
+## Installation note
+
+The first upgrade attempt failed with `INSTALL_FAILED_INSUFFICIENT_STORAGE`
+when `/data` had about 1 GB free. Android cache trimming raised free space to
+about 2 GB, after which `adb install -r` succeeded without clearing browser
+data. Downgrading a non-debuggable release is not reliably supported; a full
+uninstall/reinstall rollback erases this package's local data.
