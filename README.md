@@ -14,10 +14,9 @@ PicoVR native runtime, not the current `picoxr` OpenXR backend.
 ## Current release
 
 Build `0052` is the current device-tested production build. Its source patches
-are published here. The APK is not attached to GitHub because this community
-fork does not have documented permission to publicly redistribute the bundled
-legacy PicoVR SDK runtime. Authorized testers can receive it through the
-private PICO draft or a permitted local transfer.
+and signed APK are published in the GitHub prerelease:
+
+**[Download Wolvic Pico G2 0052 APK](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0052)**
 
 ```text
 File:        Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
@@ -274,10 +273,10 @@ Never install an unsigned APK. See [Pico SDK dependency](docs/PICO_SDK.md) and
 The patch and Wolvic-derived source files are provided under MPL-2.0.
 Third-party components keep their own licenses.
 
-The local test APK contains third-party runtime components, including the
-legacy PicoVR SDK. This repository does not publish the 0052 APK or grant
-permission to redistribute or extract that SDK. Do not commit the Pico AAR,
-native SDK library, unpacked SDK files, R8 mapping, signing keys or credentials.
+The APK contains third-party runtime components, including the legacy PicoVR
+SDK. The prerelease does not grant permission to extract or separately
+redistribute that SDK. The standalone Pico AAR, native SDK library, unpacked
+SDK files, R8 mapping, signing keys and credentials are not published.
 
 ## Project status
 
