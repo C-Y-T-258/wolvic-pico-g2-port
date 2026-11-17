@@ -1,289 +1,182 @@
-# Wolvic for Pico G2 (Gecko 128)
+# Wolvic for Pico G2: Web, WebXR and VR Video Browser
 
 [简体中文](README.md) | English
 
-An unofficial Wolvic VR browser port for **Pico G2 / Pico G2 4K**. It combines
-Wolvic 1.6.2, GeckoView 128 and the legacy native PicoVR backend to provide an
-updated WebXR browser for this 3DoF Android headset. It is useful as a
-Firefox Reality alternative on Pico G2, especially for modern WebGL/WebXR video
-sites that fail on Firefox Reality 12.2 / Gecko 81.
+An unofficial **Pico G2 / Pico G2 4K** browser port based on Wolvic 1.6.2,
+**GeckoView 128** and the headset's **legacy native PicoVR backend**.
+It retains 3DoF tracking and controller input and offers a community
+Firefox Reality alternative for this older headset.
 
-This is a community test build, not an Igalia or PICO product. It uses the old
-PicoVR native runtime, not the current `picoxr` OpenXR backend.
+The work goes beyond replacing the web engine: it fixes persistent video
+cropping and projection-switch white screens, hands supported web players
+over to native projection, repairs invisible immersive controls on specific
+player paths and adds same-video codec selection through player/protocol APIs.
 
-## Project website
+**[Download current APK, source and checksums](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-20261113)**
+| **[Project website](https://c-y-t-258.github.io/wolvic-pico-g2-port/en/)**
+| [Install / rollback](docs/INSTALL_ROLLBACK_20261113.md)
+| [Evidence matrix](docs/RELEASE_20261113.md)
 
-Visit the **[project website](https://c-y-t-258.github.io/wolvic-pico-g2-port/en/)**:
-tested scope, installation, an authentic historical headset screenshot and
-downloads. The [Chinese page](https://c-y-t-258.github.io/wolvic-pico-g2-port/)
-is also available. GitHub Pages uses its default address; no separate server
-or paid domain is required. The static [`site/`](site/index.html) also opens
-locally. See [website and discovery](docs/WEBSITE_AND_DISCOVERY.md).
+This is a community port, unaffiliated with Wolvic, Igalia or PICO.
+It uses legacy PicoVR, rather than the current `picoxr` OpenXR backend.
 
-## Community release: 2026-11-13 build
+## What Changed for Pico G2
 
-Published on **2026-11-18 (Asia/Shanghai)** as an unofficial prerelease.
-**[Download the new APK, source and SHA256 checksums](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-20261113)**.
-The published 0052 APK remains available below as a fallback.
+| Problem | Change | Evidence |
+| --- | --- | --- |
+| An older Firefox Reality engine cannot handle some modern web and VR video paths | Restored the native G2 backend and integrated GeckoView 128 | Historical headset display, tracking, controller, WebXR session and video-texture acceptance |
+| Video stays cropped at the right/bottom, or turns white after changing projection | Corrected early Surface resizing and waiting order | Historical XVideos normal/fullscreen playback and projection regression checks |
+| A web VR player remains a page window, or native handoff produces black video | Media/renderer-aware handoff from the page to native video projection | Historical Hamezo Video.js VR acceptance; not proof for unknown renderers |
+| Some non-desktop pages do not offer a usable immersive entry | Current-page Quest/Oculus UA fallback and reload, restored after leaving | Historical Pornhub / YouPorn checks; not universal immersive support |
+| Immersive control icons are black and must be found blindly | Shared MGP SVG / CanvasTexture compatibility, including YouPorn's missing VR activation marker | User acceptance for YouPorn and related regression checks |
+| Native dropdown rows flicker under the controller pointer | Corrected shared choice-widget hover propagation | User acceptance for hover, selection, click and shared-control regression |
+| A page offers different codecs without an accessible browser switch | Player/protocol discovery, verified same-content candidates and switching with state protection/recovery | Natural Eporner H.264 / AV1 switching in both directions; other paths have separate evidence levels |
 
-This release adds a general VR/video extension menu, native projection
-handoff, per-page Quest UA fallback, YouPorn control compatibility, a native
-choice-hover fix and codec switching through player/protocol adapters.
-The codec menu appears only for at least two confirmed playable codec families
-belonging to the same video. Resolution-only alternatives do not count.
-Bilibili continues using its own player controls.
+These are results for particular paths, not universal website or VR-combination
+acceptance. See the release boundary below and the [full matrix](docs/RELEASE_20261113.md).
 
-```text
-File:         Wolvic-1.6.2-picog2-20261113-arm64-signed.apk
-Label:        Wolvic Pico G2
-Package:      io.github.cyt258.wolvic.picog2.stage2epagequestua
-Version:      1.6.2-picog2-20261113 (versionCode 203170001)
-Architecture: arm64-v8a
-```
+## Current Download and Installation
 
-This package updates the previous test candidate and coexists with 0052.
-It does not migrate 0052's browser data. The release metadata cleanup has
-static verification; the new APK has not had a separate headset acceptance pass.
+The **2026-11-13 build** was published on **2026-11-18 (Asia/Shanghai)** as a
+community prerelease. Its Release includes the APK, source patch bundle and
+`SHA256SUMS.txt`.
 
-See [release notes and the evidence matrix](docs/RELEASE_20261113.md),
-[installation and rollback](docs/INSTALL_ROLLBACK_20261113.md) and
-[the release audit](docs/RELEASE_AUDIT_20261113.md).
-Implemented adapter paths do not imply universal site compatibility.
-
-## Published fallback: 0052
-
-Build `0052` is the current device-tested production build. Its source patches
-and signed APK are published in the GitHub prerelease:
-
-**[Download Wolvic Pico G2 0052 APK](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0052)**
-
-```text
-File:        Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
-Package:     io.github.cyt258.wolvic.picog2
-Version:     1.6.2 (versionCode 202242126)
-Architecture: arm64-v8a
-SHA256:      CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3
-```
-
-The APK coexists with Firefox Reality because it uses a different package ID.
-Installing a newer build of this port with `adb install -r` preserves this
-port's browser data when the signing certificate matches.
-
-## Device compatibility
-
-| Item | Tested/supported scope |
+| Item | Current build |
 | --- | --- |
-| Headset | Pico G2 / Pico G2 4K family |
-| OS | Android 8.1 / API 27 on the tested G2 |
-| CPU | arm64-v8a only |
-| Tracking | 3DoF head tracking |
-| Input | Pico controller ray and click |
-| Browser engine | GeckoView 128 |
-| XR backend | Legacy native PicoVR |
-| OpenXR | Not used and not required by this build |
+| App label | Wolvic Pico G2 |
+| APK | `Wolvic-1.6.2-picog2-20261113-arm64-signed.apk` |
+| Version | `1.6.2-picog2-20261113` |
+| versionCode | `203170001` |
+| Package | `io.github.cyt258.wolvic.picog2.stage2epagequestua` |
+| ABI | arm64-v8a |
+| APK SHA256 | `AFA8E6451E1E5F5871497729A161F7834606E6FE2612281A59B1F55C42A8B950` |
 
-It has not been validated on Pico Neo, Pico 4, G3, Quest, phone-style Android
-devices or current OpenXR runtimes. Use the official Wolvic builds for current
-headsets.
-
-## Installation options for 0052
-
-For the new release, use the [2026-11-13 installation and rollback guide](docs/INSTALL_ROLLBACK_20261113.md).
-The historical instructions below install the separate 0052 fallback.
-
-### Install directly on the headset
-
-You can try downloading the APK from the release page in a browser on the
-Pico G2 itself. After the download finishes, open the APK from Downloads, the
-system file manager or an installed APK/package manager and confirm the
-installation.
-
-The headset may ask you to allow installation from unknown sources for the
-browser or package manager that opens the file. Only grant that permission if
-you trust the downloaded APK and have verified its SHA256.
-
-### Copy the APK to the headset, then install it
-
-You can also download the APK on a computer, verify it there, and transfer it
-to the headset's internal storage by USB/MTP, a trusted file-transfer tool, or
-ADB:
+Download in the headset browser and open the APK from Downloads or a file
+manager using Android's installer. Alternatively, download and verify it on a
+computer, transfer it by USB/MTP, or install using ADB:
 
 ```powershell
-adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk /sdcard/Download/
+Get-FileHash .\Wolvic-1.6.2-picog2-20261113-arm64-signed.apk -Algorithm SHA256
+adb devices
+adb install -r .\Wolvic-1.6.2-picog2-20261113-arm64-signed.apk
 ```
 
-Then open the copied APK from the headset's Downloads folder with its package
-manager. This uses Android's on-device installer; it does not require the
-`adb install` command.
+Launch **Wolvic Pico G2**. Android may ask you to allow the installation source.
+For multiple connected devices, add `-s SERIAL` after `adb`.
 
-### Install directly with ADB
+This APK updates earlier test candidates with the same package and signer.
+It coexists with 0052 and Firefox Reality; their browser data is separate
+and not automatically migrated. Do not uninstall just to bypass a signature
+error: uninstalling deletes that package's local data.
 
-1. Enable developer/USB debugging on a Pico G2 that you are authorized to
-   manage.
-2. Install Android Platform Tools and connect the headset by USB.
-3. Confirm that ADB sees the device:
+Relative to the final tested functional baseline, this APK only changes the
+app label and version metadata. Functional assets and native libraries match
+byte for byte, with build, signature and static verification complete.
+**The relabelled APK has not had a separate headset installation pass.**
+Historical acceptance must not be presented as a full rerun of this APK.
+See the [release audit](docs/RELEASE_AUDIT_20261113.md).
 
-   ```powershell
-   adb devices
-   ```
+## Using the Video Tools
 
-4. Verify the downloaded file before installing:
+1. Open a video page and start it with the website's own play control.
+2. From the ordinary browser page, open **VR Video Tools** in the extension entry.
+3. Select native 2D, 180°, 360° or left/right / top/bottom stereo projection
+   to match the video. Flat 3D also has automatic, single-eye and original
+   aspect choices. Unknown or special projections may not map correctly.
+4. To use a site's immersive player, use its VR entry. Some pages need desktop
+   mode or a current-page Quest/Oculus UA fallback followed by a reload.
+5. **Media sources** appears only when verified codec alternatives exist.
+   Choose a target and check the reported switch result.
 
-   ```powershell
-   Get-FileHash .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk -Algorithm SHA256
-   ```
+Page fullscreen, site immersive VR and Wolvic native projection are distinct
+paths. Operate the extension from the ordinary page, without searching for it
+inside fullscreen or immersive VR. After native handoff removes a supported
+page renderer's listeners, its own VR button may need a page refresh to recover.
 
-5. Install or update the app:
+### When the Codec Menu Appears
 
-   ```powershell
-   adb install -r .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
-   ```
+The menu requires at least **two confirmed playable, switchable codec families
+for the same video**, such as H.264 and AV1. H.264 at 480p, 720p and 1080p
+is still one codec. Single codecs, unknown codecs, ambiguous identity and
+unsupported playback stay hidden instead of producing an empty selector.
 
-6. Launch **Wolvic Pico G2 Test Build** from the headset and grant the Android
-   permissions needed for browsing, media and controller use.
+Discovery uses explicit HTML sources, Video.js/VHS, hls.js, dash.js, Shaka,
+MGP, Delight and reusable xPlayer source-controller APIs. Detecting a library
+does not prove that the video has two codecs, or that every site using it works.
 
-For a specific device among multiple ADB targets, add `-s SERIAL` after `adb`.
+Switches save playback position, play/pause, rate, volume and mute state,
+verify the target and attempt recovery on failure. Unconfirmed results are
+reported, and older operations must not override newer user input.
+Different audio/subtitle tracks, quality mappings and VR combinations still
+have incomplete validation.
 
-## Using WebXR video on 0052
+Site quality and adaptive bitrate remain under the site's player.
+**Bilibili keeps its own controls.** Codec switching is not a performance
+guarantee: resolution, bitrate, network and device decoding capability matter.
 
-The following instructions describe the historical 0052 path. The new
-candidate also includes a per-page Quest UA entry in its extension menu;
-site requirements can differ. Page fullscreen, native projection and site
-immersive VR are separate modes.
+## Tested Scope
 
-> **Pornhub and similar VR video sites:** enable Wolvic's **Desktop mode** and
-> reload the page before entering immersive playback. Desktop mode is part of
-> the verified Pico G2 path. Without it, the site may serve its mobile player,
-> expose different controls, or behave like a movable 360-degree video window
-> instead of the intended immersive presentation.
+| Path | Evidence | Boundary |
+| --- | --- | --- |
+| Eporner / Video.js/VHS dual HLS | Natural same-video H.264 / AV1 device switching in both directions on the final functional baseline | One manifest timeout; no guarantee for every video or connection |
+| xHamster / xPlayer | Historical natural dual-codec and quality-mode tests | Not completely rerun in the final APK; the video must offer two codecs |
+| HTML, hls.js, dash.js | Controlled device switching, state, interruption and recovery tests | Not proof of arbitrary natural-site support |
+| Shaka, MGP, Delight | Graded evidence from controlled switching, natural binding and source discovery | Natural dual codecs, non-default audio, quality mapping and VR combinations have gaps |
+| Ordinary pages and existing VR/projection | Historical user regression and device records | No final matrix of every new adapter with VR |
 
-1. For Pornhub-like sites, switch Wolvic to Desktop mode and reload the page.
-2. Open the browser extension entry named **VR 视频投影** to show the floating
-   projection menu. Choose site automatic, 2D, 3D left/right, 3D top/bottom,
-   360, 360 stereo, 180, 180 stereo left/right or 180 stereo top/bottom.
-3. Start the video from the normal page first if the site requires a user
-   gesture.
-4. Use the website's fullscreen or immersive-VR entry when it becomes
-   available.
-5. Move your head to verify 3DoF tracking. Use the Pico controller ray to
-   reveal and operate the player's controls.
-6. Treat these as separate checks: page video playback, fullscreen layout,
-   immersive WebXR entry, head tracking, video texture rendering and control
-   icon visibility.
+Four patches were replayed from clean upstream source, with 1,367 source files
+compared and 28 extension files matching the APK. The extension suite has
+**435 passing tests**. Source and automated checks do not replace headset
+verification of sound, picture and interaction.
 
-The build was tested with XVideos normal/fullscreen playback and Pornhub VR
-immersive playback. This statement documents compatibility testing; it is not
-an endorsement of either service and does not guarantee that future site
-updates will remain compatible.
+## Devices and Known Limits
 
-## Verified behavior
+- Target: Pico G2 / G2 4K family; tested on Android 8.1 / API 27, arm64-v8a.
+  Pico 4, Neo, G3, Quest and ordinary Android phones are unverified.
+- 3DoF head tracking and Pico controller input; no claims for hand, eye,
+  face or body tracking or mixed reality.
+- Fisheye, EAC, cubemap, arbitrary field of view and complete spatial-video
+  metadata are outside the verified native projection scope.
+- Entering or leaving fullscreen can briefly change aspect; historical device
+  checks settled correctly.
+- Long media experiments once exhausted codec/Surface resources. Rebooting
+  recovered playback; this is not a confirmed permanent fix. Check networking
+  separately when video fails.
+- Websites change independently. DRM, unknown self-rendered players and all
+  cross-origin embed combinations are not universally supported.
 
-- Native PicoVR display, TimeWarp and a roughly 74-75 Hz compositor
-- Pico G2 3DoF head tracking and controller input
-- Standard immersive WebXR session creation
-- GeckoView 128 video/WebGL texture rendering
-- Pornhub VR immersive video playback
-- Visible Three.js/canvas player control icons
-- Pornhub-scoped floating menu with nine projection choices
-- XVideos normal and fullscreen playback
-- XVideos projection switching without a white screen or stalled resume
-- No persistent right/bottom crop when entering fullscreen before playback
-- Correct exit and re-entry to fullscreen while video is playing
+## 0052 Fallback
 
-Successful compilation or immersive entry alone is not proof that a WebXR
-video site works. Final validation requires playback, tracking, controls and
-textures to work together on the headset.
+The **[historical 0052 release](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0052)**
+remains available. It contains the native backend, WebXR video compatibility
+and early projection fixes, without the later complete codec tools.
+Its package is `io.github.cyt258.wolvic.picog2`, so it can coexist with the
+current build. Launch it directly if already installed.
 
-## Known limitations
+0052 APK SHA256:
+`CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3`.
+Android may reject same-package downgrades; `-r -d` cannot guarantee a
+data-preserving rollback. See [installation and rollback](docs/INSTALL_ROLLBACK_20261113.md).
 
-- A short aspect-ratio transition can appear while entering or leaving
-  fullscreen; the final image settles correctly in the tested build.
-- Long media experiments once exhausted a Pico G2 codec/Surface resource. A
-  full headset reboot restored playback. This is a recovery method, not a
-  confirmed permanent application fix.
-- The current PICO testing-channel delivery requirements start at Pico Neo3,
-  so a G2 cannot rely on PICO Library Alpha delivery. Authorized ADB sideloading
-  is still required.
-- The build only declares controller support. It does not claim hand, body,
-  eye or face tracking, Avatar support or mixed reality.
-- Website behavior can change independently of this project.
+## Running on the Headset
 
-## Troubleshooting
+![Historical build 0037 on Pico G2, single-eye startup capture](site/assets/headset-single-eye.webp)
 
-### `VR not found` or immersive mode does not start
+This authentic historical build 0037 capture shows the port running on the
+headset. It is not the current tools UI or evidence of new compatibility.
+Current capability claims follow the descriptions above and the dated
+[verification record](docs/VERIFICATION.md).
 
-- Confirm that you installed this Pico G2 build, not a generic Android or
-  current OpenXR APK.
-- Fully close and reopen Wolvic. If media and XR state remain broken, reboot
-  the headset and test normal video before immersive mode.
-- Verify the site is loaded over HTTPS and that its WebXR entry control is
-  enabled after a user gesture.
+## Build from Source
 
-### Page loads but video does not play
+The source is provided as **upstream Wolvic v1.6.2 + four ordered patches +
+build tooling**, rather than a separately maintained full upstream mirror.
+The Release source attachment is its publication snapshot; subsequent README
+updates are on `main`.
 
-- Test an ordinary non-immersive video first.
-- Check DNS/VPN/proxy connectivity separately from decoding.
-- Reboot the G2 if multiple sites stop after repeated media experiments. The
-  tested device recovered its codec/Surface state after a full reboot.
-
-### Black player icons or persistent fullscreen crop
-
-- Check that Android reports versionCode `202242126` or newer for
-  `io.github.cyt258.wolvic.picog2`.
-- Build 0052 contains the verified SVG/canvas compatibility layer, projection
-  menu and corrected early Surface resize ordering.
-
-### `INSTALL_FAILED_UPDATE_INCOMPATIBLE`
-
-The installed package was signed with a different certificate. Back up data
-before uninstalling it. Removing the package deletes that app's local data:
-
-```powershell
-adb uninstall io.github.cyt258.wolvic.picog2
-adb install .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
-```
-
-## Rollback
-
-Try installing an older build signed by the same key with downgrade enabled:
-
-```powershell
-adb install -r -d .\older-wolvic-picog2.apk
-```
-
-If Android rejects the downgrade, uninstalling and reinstalling will work but
-will erase this package's browser data. Firefox Reality is a separate package
-and is not removed by these commands.
-
-## What the port changes
-
-- Restores the legacy `picovr` product flavor and native Pico G2 device
-  delegate on Wolvic 1.6.2.
-- Uses GeckoView 128 instead of Firefox Reality's Gecko 81.
-- Adds a Pornhub-scoped compatibility layer for SVG/canvas controls and a
-  browser-action floating projection menu with nine choices.
-- Preserves the early VR video resize call order while waiting only where an
-  unplayed Surface actually needs it, fixing both persistent crop and the
-  projection-switch white-screen regression.
-
-The project does not replace Pornhub's player, package website resources into
-the browser, or use a generic OpenXR backend as a substitute for Pico G2
-support.
-
-## Build from source
-
-Building is intended for developers who already have the legacy PicoVR Android
-Native SDK v1.3.3 and have accepted its license. The SDK is deliberately absent
-from this repository.
-
-Required toolchain:
-
-- JDK 17
-- Gradle 8.2 / Android Gradle Plugin 8.2.1
-- Android SDK 34
-- Android NDK 25.1.8937393 (r25b)
-- CMake 3.22.1
-- PicoVR Android Native SDK v1.3.3 AAR
+Requirements: JDK 17, Gradle 8.2 / Android Gradle Plugin 8.2.1, Android SDK 34,
+NDK 25.1.8937393 (r25b), CMake 3.22.1, and a PicoVR Android Native SDK v1.3.3
+AAR obtained under its license.
 
 ```powershell
 git clone --branch v1.6.2 --recurse-submodules https://github.com/Igalia/wolvic.git D:\work\wolvic-v1.6.2
@@ -300,39 +193,29 @@ git -C D:\work\wolvic-v1.6.2 config core.autocrlf false
   -Variant Release
 ```
 
-The release variant is unsigned unless a signing configuration is supplied.
-Never install an unsigned APK. See [Pico SDK dependency](docs/PICO_SDK.md) and
-[verification record](docs/VERIFICATION.md) for checksums and build evidence.
+The release variant is unsigned without a signing configuration and cannot be
+installed directly. See [SDK requirements](docs/PICO_SDK.md) and the
+[source replay / asset audit](docs/RELEASE_AUDIT_20261113.md).
 
-## Repository layout
+| Path | Contents |
+| --- | --- |
+| `patches/0001` through `0004` | Native port, Surface fixes, compatibility menu and later video/codec work |
+| `build.ps1`, `verify-source.cjs` | Build and extension-asset verification |
+| `docs/` | Release, installation, verification and SDK boundaries |
+| `site/`, `tools/` | Bilingual static showcase, generation and validation |
 
-- `patches/0001-...source-only.patch`: cumulative Pico G2 port patch against
-  Wolvic `v1.6.2`
-- `patches/0002-...surface-resize.patch`: Surface/projection ordering fix
-- `patches/0003-...projection-menu.patch`: Pornhub compatibility and floating menu
-- `patches/0004-...release-20261113.patch`: subsequent native/extension changes,
-  codec adapters, tests and release identity
-- `build.ps1`: prerequisite checks, patch application and isolated build
-- `docs/PICO_SDK.md`: SDK checksum and redistribution boundary
-- `docs/VERIFICATION.md`: build and device evidence
-- `docs/PICO_ALPHA.md`: private Alpha metadata and G2 delivery limitation
-- `site/`: static Chinese/English showcase and search metadata
-- `tools/build-site.cjs`, `tools/verify-site.cjs`: dependency-free site generation
-  and validation
+## License and Feedback
 
-## Licensing and distribution
+Wolvic-derived source and patches are MPL-2.0; third-party components retain
+their licenses. The APK includes required third-party runtimes. Standalone
+Pico SDK AARs, unpacked SDK files, signing keys, credentials and private
+browsing logs are not distributed. Wolvic marks belong to their owners.
 
-The patch and Wolvic-derived source files are provided under MPL-2.0.
-Third-party components keep their own licenses.
+Use [GitHub Issues](https://github.com/C-Y-T-258/wolvic-pico-g2-port/issues),
+including build, device, page/site-VR/native-projection path, reproduction
+steps and actual behavior. Do not post cookies, account details or media URLs
+containing private tokens.
 
-The APK contains third-party runtime components, including the legacy PicoVR
-SDK. The prerelease does not grant permission to extract or separately
-redistribute that SDK. The standalone Pico AAR, native SDK library, unpacked
-SDK files, R8 mapping, signing keys and credentials are not published.
-
-## Project status
-
-The 2026-11-13 community build is published with four ordered source patches.
-Build `0052` remains the published fallback. This remains a focused
-legacy-device port, not an official Wolvic distribution or a promise of
-long-term website support. See the dated evidence matrix for unfinished paths.
+The repository and website provide public bilingual descriptions and search
+metadata. Actual search observations and unconfirmed indexing / AI
+recommendations are recorded in the [discovery check](docs/DISCOVERY_CHECK_20261118.md).

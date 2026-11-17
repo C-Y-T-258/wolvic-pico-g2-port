@@ -15,9 +15,15 @@ for (const name of ['index.html', 'en/index.html']) {
   assert.equal(schema['@type'], 'SoftwareApplication');
   assert.equal(schema.softwareVersion, state.publishedCandidate ? '1.6.2-picog2-20261113' : '1.6.2 / 0052');
   assert.equal(schema.downloadUrl, state.apk);
+  assert.equal(schema.inLanguage, name.startsWith('en/') ? 'en' : 'zh-CN');
+  assert.equal(schema.sameAs, 'https://github.com/C-Y-T-258/wolvic-pico-g2-port');
   if (state.publishedCandidate) {
     assert.ok(html.includes('/releases/tag/picog2-1.6.2-0052'), 'Old release remains accessible');
     assert.ok(!html.includes('not yet published') && !html.includes('尚未公开发布'));
+    assert.equal([...html.matchAll(/class="feature"/g)].length, 6, 'Six concrete adaptation results');
+    for (const result of ['Hamezo', 'YouPorn', 'Quest', 'H.264 / AV1']) {
+      assert.ok(html.includes(result), `${name}: missing adaptation result ${result}`);
+    }
   } else {
     assert.ok(html.includes('尚未公开发布') || html.includes('not yet published'));
     assert.ok(!html.includes('/releases/download/picog2-1.6.2-20261113/'), 'Unpublished candidate has no download');

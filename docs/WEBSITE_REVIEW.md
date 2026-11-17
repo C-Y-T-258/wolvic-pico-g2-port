@@ -47,3 +47,19 @@ site uses the release-aware workflow and retains the 0052 fallback.
 - Public HTTP, metadata, downloads and artifact checks are recorded in
   [the publication checklist](PUBLICATION_CHECKLIST.md).
 - External search indexing and AI recommendations remain outside the verified scope.
+
+## Introduction revision: 2026-11-18
+
+The Chinese default README and English translation were rewritten around the
+current release. The website now describes six concrete adaptation results,
+including Hamezo handoff, per-page UA, YouPorn controls and codec switching,
+and distinguishes site VR from native projection in the FAQ.
+
+Both release modes passed metadata and 50 page-link/asset checks. The revised
+published mode passed the same ten Chinese/English viewport and interaction
+checks listed above; desktop Chinese and mobile English full-page screenshots
+were also visually reviewed. Thirty local documentation links were checked.
+The review output is stored locally under `website-review-rewrite-20261118/`.
+
+Search observations and uncertain external results are retained in the
+[discovery check](DISCOVERY_CHECK_20261118.md).

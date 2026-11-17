@@ -16,8 +16,8 @@ const hash = publishedCandidate ? 'AFA8E6451E1E5F5871497729A161F7834606E6FE26122
 const doc = name => `${repo}/blob/main/docs/${name}`;
 const copy = {
   zh: {
-    lang: 'zh-CN', title: 'Wolvic for Pico G2 | Pico G2 / G2 4K VR 浏览器',
-    description: '面向 Pico G2 / G2 4K 的非官方 Wolvic 浏览器：GeckoView 128、原生 PicoVR、3DoF 与 WebXR 视频适配。下载 APK，查看安装方式、验证范围与源码。',
+    lang: 'zh-CN', title: 'Pico G2 浏览器 Wolvic | G2 4K / Firefox Reality 替代方案',
+    description: 'Pico G2 / G2 4K 的非官方 Wolvic 浏览器，Firefox Reality 社区替代方案。GeckoView 128、原生 PicoVR、WebXR、视频投影交接与编码选择。下载 APK，查看适配成果、安装和验证范围。',
     skip: '跳到正文', nav: ['适配成果', '下载', '安装', 'English'],
     eyebrow: 'Pico G2 / G2 4K · 社区移植',
     intro: '给 Pico G2 一个较新的网页与 VR 视频入口。基于 Wolvic 1.6.2、GeckoView 128 和原生 PicoVR。',
@@ -71,8 +71,8 @@ const copy = {
     source: '源代码', feedback: '反馈问题', evidence: '验证记录'
   },
   en: {
-    lang: 'en', title: 'Wolvic for Pico G2 | G2 / G2 4K VR Browser',
-    description: 'An unofficial Wolvic browser for Pico G2 / G2 4K, with GeckoView 128, native PicoVR, 3DoF and WebXR video compatibility. Download the APK, installation guide and tested scope.',
+    lang: 'en', title: 'Wolvic for Pico G2 | G2 4K Browser / Firefox Reality Alternative',
+    description: 'An unofficial Pico G2 / G2 4K browser and community Firefox Reality alternative. GeckoView 128, native PicoVR, WebXR, video handoff and codec selection. Download the APK and review installation, changes and tested scope.',
     skip: 'Skip to content', nav: ['The port', 'Download', 'Install', '简体中文'],
     eyebrow: 'Pico G2 / G2 4K · Community port',
     intro: 'A newer web and VR video entry point for Pico G2. Built on Wolvic 1.6.2, GeckoView 128 and native PicoVR.',
@@ -129,6 +129,16 @@ const copy = {
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 if (publishedCandidate) {
   Object.assign(copy.zh, {
+    heroNote: 'Pico G2 历史实机画面 · 单眼裁切 · 非当前版界面',
+    features: [
+      ['原生 PicoVR 与 WebXR', '在 Wolvic 1.6.2 上恢复 G2 的 legacy PicoVR 后端，接入 GeckoView 128。保留 3DoF 头部追踪和手柄，已有普通网页、视频纹理及沉浸 WebXR 实机记录。'],
+      ['视频裁切与投影白屏', '调整视频 Surface 尺寸更新和等待顺序，修复进入全屏后的持续裁切、投影切换白屏。提供原生 2D、180°、360° 和立体投影；特殊投影模型另有边界。'],
+      ['Hamezo 网页到原生交接', '通用视频工具按媒体与渲染器归属交接，避免把整个网页放大成视频。Hamezo 的 Video.js VR 路径已有历史实机验收；原生接管后，网站 VR 按钮可能需要刷新恢复。'],
+      ['当前页 Quest UA 回退', '部分网站非桌面模式不提供可用沉浸入口时，可对当前页使用 Quest/Oculus UA 并重新加载。离开后恢复原 UA；Pornhub / YouPorn 有历史实机记录，不承诺所有网站通用。'],
+      ['沉浸控件与悬停修复', '共享 MGP SVG / CanvasTexture 兼容层处理黑色图标，补足 YouPorn 的 VR 激活判据；共用原生选择控件修复单行悬停闪烁。这些修复已有用户验收记录。'],
+      ['同视频真实多编码选择', '按播放器和协议发现来源，至少两种确认可播放、可切换的编码族才显示菜单。Eporner H.264 / AV1 有自然网页双向证据；清晰度差异不算编码，失败恢复及其他路线限制均明确列出。']
+    ],
+    coverageIntro: '当前版保留历史实机成果，编码部分区分最终功能基线、历史自然网页与受控测试。新名称 APK 的功能资源已核对一致，但未单独重做头显安装验收；播放器适配器存在不等于所有网站都可切换。',
     published: '新发布 · 功能基线实测 / 发布包静态核对', downloadButton: '下载新版 APK',
     releaseCopy: '2026-11-13 构建：通用视频工具、原生投影交接、编码选择、单页 UA 和控件修复。功能资源与最终测试基线一致，新名称 APK 尚未单独实机安装。',
     pending: '保留下载 · 旧版回退', candidate: 'Wolvic 1.6.2 / 0052',
@@ -139,8 +149,21 @@ if (publishedCandidate) {
     installGuide: '新版安装与回滚说明', checksum: '新版 APK · SHA256'
   });
   copy.zh.steps[2][1] = '在应用列表打开 Wolvic Pico G2。先确认普通网页和视频，再尝试网站沉浸入口。';
+  copy.zh.rows[1][1] = 'Hamezo 等路径有历史原生交接与用户回归；当前版保留实现。';
   copy.zh.questions[2][1] = '来源选择要求同一视频至少两种真实、可播放编码得到确认。单编码、只有分辨率差异、身份不明或设备不支持时隐藏。旧版 0052 没有完整编码工具。';
+  copy.zh.questions.splice(2, 0, ['如何选择网页 VR 和原生视频投影？', '先在普通网页启动视频。网站 VR 入口使用网页自己的沉浸播放器；浏览器扩展里的“VR 视频工具”用于原生投影或当前页 UA。网页全屏、网站 VR、原生投影分别处理，扩展在普通网页界面操作。原生接管部分渲染器后，网站 VR 按钮可能需要刷新恢复。']);
   Object.assign(copy.en, {
+    heroNote: 'Historical Pico G2 capture · single-eye crop · not the current release UI',
+    galleryCaption: 'Historical build 0037 on a Pico G2 home page. This demonstrates the running port, not the current release UI or a site compatibility result. The original stereo layout and G2 capture color characteristics are retained.',
+    features: [
+      ['Native PicoVR and WebXR', 'Restores the G2 legacy PicoVR backend on Wolvic 1.6.2 with GeckoView 128. Preserves 3DoF tracking and controller input, with historical device records for browsing, video textures and immersive WebXR.'],
+      ['Video crop and projection fixes', 'Corrects video Surface sizing and wait order to address persistent fullscreen cropping and projection-switch white screens. Native 2D, 180°, 360° and stereo modes are available; special projection models have separate limits.'],
+      ['Hamezo native video handoff', 'General video tools hand off the media and its renderer instead of enlarging the entire page. The Hamezo Video.js VR path has historical device acceptance. After native takeover, a reload may be needed to restore the site VR button.'],
+      ['Per-page Quest UA fallback', 'If a non-desktop site does not offer a usable immersive entry, apply Quest/Oculus UA to the current page and reload. The previous UA returns after leaving. Historical checks cover Pornhub / YouPorn, not every website.'],
+      ['Immersive controls and hover', 'A shared MGP SVG / CanvasTexture layer addresses black icons and adds the YouPorn VR activation condition. The shared native choice widget also fixes single-row hover flicker. User acceptance records cover these fixes.'],
+      ['Real same-video codec choices', 'Player and protocol discovery shows the menu only for at least two confirmed playable, switchable codec families. Natural Eporner H.264 / AV1 switching passed in both directions. Resolution is not a codec; recovery and other adapter limits remain documented.']
+    ],
+    coverageIntro: 'The current release retains historical device work. Codec evidence distinguishes the final functional baseline, historical natural pages and controlled tests. Functional assets match, but the relabelled APK has not had separate headset installation acceptance. An adapter is not proof of support on every website.',
     published: 'New release · tested baseline / static APK audit', downloadButton: 'Download new APK',
     releaseCopy: 'The 2026-11-13 build adds general video tools, native handoff, codec selection, per-page UA and player fixes. Functional assets match the final tested baseline; the relabelled APK has not had a separate headset installation.',
     pending: 'Still available · older fallback', candidate: 'Wolvic 1.6.2 / 0052',
@@ -152,6 +175,7 @@ if (publishedCandidate) {
   });
   copy.en.steps[2][1] = 'Open Wolvic Pico G2. Check ordinary browsing and playback before a site immersive entry.';
   copy.en.questions[2][1] = 'Codec selection requires at least two verified playable codecs for the same content. Single codecs, resolution-only choices, unknown identity or unsupported playback stay hidden. The older 0052 build does not include the complete codec tools.';
+  copy.en.questions.splice(2, 0, ['How do site VR and native projection differ?', 'Start playback on the ordinary page first. The site VR entry uses its own immersive player; the browser extension named “VR 视频工具” provides native projection and per-page UA. Page fullscreen, site VR and native projection are distinct paths. Operate the extension from the ordinary page. Native takeover of some renderers may require a reload before site VR works again.']);
 }
 function render(locale) {
   const t = copy[locale], en = locale === 'en', prefix = en ? '../' : './';
@@ -161,6 +185,7 @@ function render(locale) {
     name: 'Wolvic for Pico G2', alternateName: ['Pico G2 Wolvic browser', 'Pico G2 浏览器'],
     applicationCategory: 'BrowserApplication', operatingSystem: 'Android (Pico G2, arm64-v8a)',
     description: t.description, url: canonical, image: `${base}assets/wolvic-icon.png`,
+    inLanguage: t.lang, sameAs: repo, mainEntityOfPage: canonical,
     softwareVersion: publishedCandidate ? '1.6.2-picog2-20261113' : '1.6.2 / 0052', downloadUrl: apk,
     author: { '@type': 'Person', name: 'C-Y-T-258', url: 'https://github.com/C-Y-T-258' },
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

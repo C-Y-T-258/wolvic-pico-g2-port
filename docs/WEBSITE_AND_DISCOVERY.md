@@ -34,6 +34,10 @@ node tools/build-site.cjs
 node tools/verify-site.cjs
 ```
 
+The default command previews the older fallback state. To reproduce the current
+published download, use `node tools/build-site.cjs --published-candidate` before
+verification.
+
 Open `site/index.html` directly. No local development server is needed.
 It includes ordinary links that also work from a static Pages deployment.
 
@@ -70,6 +74,10 @@ configuration or claim it submitted a sitemap.
 
 No hidden keywords, fake reviews, fabricated usage numbers or claims of
 universal codec/site support are used.
+
+The [2026-11-18 discovery check](DISCOVERY_CHECK_20261118.md) records actual
+queries and their limits. A repository result was returned with older 0052
+copy; indexing of the new website and refreshed content remains unconfirmed.
 
 ## Content and image provenance
 
@@ -120,5 +128,11 @@ claims from a different APK.
 下载入口、覆盖范围、安装说明、真实历史截图和搜索元数据均在同一仓库维护。
 Pages 发布后只需随仓库更新，不存在额外的应用服务器运维。
 
+GitHub 默认 `README.md` 使用中文，英文保留在 `README.en.md`。介绍与展示页已围绕
+当前版重写，展开 Hamezo 交接、单页 Quest UA、YouPorn 沉浸控件、悬停修复和
+同视频编码切换；0052 作为回退版本保留，不再占据新版安装主线。
+
 搜索和 AI 可发现性以公开、可抓取、可核查的资料为目标，不承诺收录、排名或
-所有 AI 都会知道该项目。账户验证或主动提交站长平台是可选后续，不作为发布门槛。
+所有 AI 都会知道该项目。实际观察见[搜索核对记录](DISCOVERY_CHECK_20261118.md)，
+未确认的外部效果仍明确保留，不能以网页上线代替。账户验证或主动提交站长平台
+是可选后续，不作为发布门槛。

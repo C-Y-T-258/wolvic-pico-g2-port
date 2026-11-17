@@ -95,3 +95,19 @@ Publishing does not turn unverified combinations into verified support.
 Search indexing is not a publication pass/fail gate. Server responses,
 metadata, accessible HTML and sitemap can be verified; third-party search
 ranking or AI recommendations cannot be guaranteed.
+
+## 2026-11-18 introduction revision
+
+The default README is Chinese, with `README.en.md` retaining the English
+translation and `README.zh-CN.md` preserving the previous Chinese entry link.
+Both introductions now centre on the current release: native PicoVR/WebXR,
+crop/projection fixes, Hamezo handoff, per-page Quest UA, YouPorn/MGP controls,
+hover repair and evidence-based codec selection. The bilingual website uses
+the same concrete results and keeps 0052 as a fallback.
+
+These are subsequent documentation changes on `main`. The published APK,
+release tag and source ZIP remain the reviewed release snapshot; the source
+attachment does not silently change with later README edits.
+
+Actual search observations and unconfirmed indexing/AI effects are recorded
+in [the discovery check](DISCOVERY_CHECK_20261118.md).
