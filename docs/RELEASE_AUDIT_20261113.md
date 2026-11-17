@@ -1,6 +1,9 @@
 # Release audit: 2026-11-13
 
-Status: prepared locally for review. No GitHub push or Release publication.
+The audit below records the local preparation of the 2026-11-13 build.
+Publication was authorized on 2026-11-18 (Asia/Shanghai); source, documentation
+and the [community prerelease](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-20261113)
+are now public. Publication does not extend the device acceptance boundary.
 
 The subsequent website/discovery preparation is documented separately in
 [website review](WEBSITE_REVIEW.md) and
@@ -85,4 +88,5 @@ The APK itself still contains its required third-party runtime components.
 上游重放，1367 个源码文件完成比对，28 个扩展文件与 APK 一致，435 项测试通过。
 
 新名称 APK 尚未单独实机安装；旧包的验证范围和未验收边界原样保留。
-材料仅供审阅，尚未 push 或发布。
+源码与发布材料已于2026-11-18（北京时间）同步公开，0052回退版本保留；
+公开发布不改变上述静态审计与实机验收的区别。

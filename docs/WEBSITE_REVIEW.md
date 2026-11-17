@@ -1,7 +1,10 @@
 # Website review
 
-The site is ready for local review and GitHub Pages deployment.
-No GitHub Pages site has been created or published in this preparation step.
+The reviewed site is published through GitHub Pages following user approval
+on 2026-11-18 (Asia/Shanghai).
+Chinese: `https://c-y-t-258.github.io/wolvic-pico-g2-port/`
+English: `https://c-y-t-258.github.io/wolvic-pico-g2-port/en/`
+The local preparation checks below are retained as the review record.
 
 ## Verified
 
@@ -27,18 +30,20 @@ uses one separately labelled historical device screenshot.
 
 In the local review bundle:
 
-- `website/index.html`: accurate current-publication state, downloading 0052.
+- `website/index.html`: refreshed copy of the published site.
 - `website-after-publication/index.html`: a preview of the final published
   state, with the new APK primary and 0052 retained.
 - `website-review-published/zh-1440-viewport.png`: desktop screenshot.
 - `website-review-published/zh-390-viewport.png`: mobile screenshot.
 
-The second variant is only a preview; its candidate download URL will not
-exist until the new release is actually published.
+The second variant was the reviewed preview before publication. The live
+site uses the release-aware workflow and retains the 0052 fallback.
 
-## Still pending
+## Publication checks
 
-- User confirmation of public synchronization/publication.
-- Actual GitHub Release upload and GitHub Pages deployment.
-- Public HTTP, download and metadata checks after deployment.
-- External indexing, if any, can only be observed after publication.
+- User approved public synchronization and publication on 2026-11-18.
+- Source history is synchronized and the Pages build/deploy jobs succeeded.
+- The new prerelease contains the APK, source archive and checksum file.
+- Public HTTP, metadata, downloads and artifact checks are recorded in
+  [the publication checklist](PUBLICATION_CHECKLIST.md).
+- External search indexing and AI recommendations remain outside the verified scope.

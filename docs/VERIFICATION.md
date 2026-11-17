@@ -1,11 +1,13 @@
 # Verification record
 
-## Candidate prepared on 2026-11-13
+## Community build prepared on 2026-11-13
 
 The current source includes four patches in numeric order. Patch 0004 contains
 the post-0052 native and extension changes, codec adapters and their tests.
 Use a fresh upstream checkout for a new build. The historical sections below
-describe 0052, not validation of the next APK.
+describe 0052, not validation of the 2026-11-13 APK.
+The new build was published as a community prerelease on 2026-11-18
+(Asia/Shanghai); its metadata-cleaned APK has no separate headset installation pass.
 
 See [candidate evidence](RELEASE_20261113.md),
 [release audit](RELEASE_AUDIT_20261113.md) and

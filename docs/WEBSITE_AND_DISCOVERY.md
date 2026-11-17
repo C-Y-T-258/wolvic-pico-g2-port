@@ -5,16 +5,16 @@
 The website is plain static HTML and CSS under `site/`. It needs no application
 server, database, paid domain, tracking service or build-time package download.
 
-Planned default GitHub Pages address:
+Default GitHub Pages address:
 `https://c-y-t-258.github.io/wolvic-pico-g2-port/`
 
 English version: `/wolvic-pico-g2-port/en/`.
 
-The website is prepared locally. GitHub Pages was not enabled at the last
-repository check. Deployment and public repository metadata changes are held
-for the user's release review.
+GitHub Pages was enabled on 2026-11-18 (Asia/Shanghai), after publication
+approval. The reviewed source and website are synchronized to `main`.
+The initial Pages build and deployment both succeeded.
 
-After publication approval:
+Deployment procedure:
 
 1. Synchronize the reviewed source, documents and site to `main`.
 2. Set the repository Pages build type to GitHub Actions.
@@ -47,14 +47,14 @@ The page includes:
 - natural Chinese and English descriptions of Pico G2 / G2 4K browser support;
 - a single product H1, descriptive page titles and descriptions;
 - separate Chinese/English URLs with canonical and reciprocal hreflang links;
-- SoftwareApplication JSON-LD matching the public 0052 download;
+- SoftwareApplication JSON-LD matching the selected public release download;
 - Open Graph / Twitter preview metadata with a local bitmap;
 - `sitemap.xml` and readable static HTML;
 - links to source, evidence, releases, installation and issue reporting.
 
 The repository already has relevant topics, including `pico-g2`, `picog2`,
 `vr-browser`, `geckoview`, `firefox-reality` and `webxr`. The public homepage
-currently points to an old 0038 test release; update it at deployment.
+points to the default Pages address.
 
 These are technical discoverability measures, not proof of search indexing,
 ranking or an AI assistant's knowledge. No claim is made that every engine
@@ -102,7 +102,7 @@ APK to exist on a non-draft release before generating the new-download mode.
 If it is absent, the public download stays on 0052. It runs on release
 publication as well as site updates.
 
-For local review only, the final publication mode can be generated separately:
+The published mode can also be generated locally:
 
 ```powershell
 node tools/build-site.cjs --published-candidate --output D:\review\after-publication

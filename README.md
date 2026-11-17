@@ -13,19 +13,20 @@ PicoVR native runtime, not the current `picoxr` OpenXR backend.
 
 ## Project website
 
-The bilingual static showcase is prepared in [`site/`](site/index.html).
-It presents the port, tested scope, installation, an authentic historical
-headset screenshot and downloads. It can be opened locally without a server.
-GitHub Pages hosting uses the default GitHub address, with no paid domain.
-Deployment is pending review; see [website and discovery](docs/WEBSITE_AND_DISCOVERY.md).
+Visit the **[project website](https://c-y-t-258.github.io/wolvic-pico-g2-port/en/)**:
+tested scope, installation, an authentic historical headset screenshot and
+downloads. The [Chinese page](https://c-y-t-258.github.io/wolvic-pico-g2-port/)
+is also available. GitHub Pages uses its default address; no separate server
+or paid domain is required. The static [`site/`](site/index.html) also opens
+locally. See [website and discovery](docs/WEBSITE_AND_DISCOVERY.md).
 
-## Release candidate prepared on 2026-11-13
+## Community release: 2026-11-13 build
 
-The next release is prepared locally for review and has **not been published**.
-The source in this revision includes the candidate; the published 0052 APK
-remains available below as a fallback.
+Published on **2026-11-18 (Asia/Shanghai)** as an unofficial prerelease.
+**[Download the new APK, source and SHA256 checksums](https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-20261113)**.
+The published 0052 APK remains available below as a fallback.
 
-The candidate adds a general VR/video extension menu, native projection
+This release adds a general VR/video extension menu, native projection
 handoff, per-page Quest UA fallback, YouPorn control compatibility, a native
 choice-hover fix and codec switching through player/protocol adapters.
 The codec menu appears only for at least two confirmed playable codec families
@@ -85,7 +86,10 @@ It has not been validated on Pico Neo, Pico 4, G3, Quest, phone-style Android
 devices or current OpenXR runtimes. Use the official Wolvic builds for current
 headsets.
 
-## Installation options
+## Installation options for 0052
+
+For the new release, use the [2026-11-13 installation and rollback guide](docs/INSTALL_ROLLBACK_20261113.md).
+The historical instructions below install the separate 0052 fallback.
 
 ### Install directly on the headset
 
@@ -328,7 +332,7 @@ SDK files, R8 mapping, signing keys and credentials are not published.
 
 ## Project status
 
-Build `0052` remains the published fallback. The next candidate is prepared
-for review with four ordered source patches. This remains a focused
+The 2026-11-13 community build is published with four ordered source patches.
+Build `0052` remains the published fallback. This remains a focused
 legacy-device port, not an official Wolvic distribution or a promise of
 long-term website support. See the dated evidence matrix for unfinished paths.
