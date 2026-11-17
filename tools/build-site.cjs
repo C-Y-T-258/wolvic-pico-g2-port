@@ -235,7 +235,7 @@ function render(locale) {
       <span class="eyebrow">04 / ${en ? 'Installation' : '安装'}</span><h2>${t.install}</h2><p class="section-lead">${t.installLead}</p>
       <div class="install-grid"><ol class="steps">${t.steps.map(([title, text]) => `<li><strong>${title}</strong><p>${text}</p></li>`).join('')}</ol>
       <div><pre class="terminal"><code>adb devices
-adb install -r .\\${file}</code></pre><p class="meta">${t.installNote}</p><p class="meta"><a href="${publishedCandidate ? doc('INSTALL_ROLLBACK_20261113.md') : `${repo}/blob/main/${en ? 'README.md' : 'README.zh-CN.md'}`}">${t.installGuide}</a></p>
+adb install -r .\\${file}</code></pre><p class="meta">${t.installNote}</p><p class="meta"><a href="${publishedCandidate ? doc('INSTALL_ROLLBACK_20261113.md') : `${repo}/blob/main/${en ? 'README.en.md' : 'README.md'}`}">${t.installGuide}</a></p>
       <div class="checksum">${t.checksum}<code>${hash}</code></div></div></div>
     </div></section>
     <section class="section gallery"><div class="wrap"><div class="section-title"><h2>${t.gallery}</h2></div>
