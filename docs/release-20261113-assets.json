@@ -1,0 +1,114 @@
+[
+  {
+    "path": "app/src/main/assets/extensions/fxr_mediasession/main.js",
+    "sha256": "410bd894b2b0beff257c169174e96423bab1b44430dfef2c5a0b5c4d5d9d26ac"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_mediasession/manifest.json",
+    "sha256": "f710aef7a6790aab27b46a3bc74f5386c6b80d99042eb65ee86aaef414fbee09"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_vimeo/main.css",
+    "sha256": "b36f80fe197642a2a32d2f8e0a78ae2785859e6514d9b6c10f7823579d8bdc50"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_vimeo/main.js",
+    "sha256": "47016e31057194c7bd2057f01ca43c8c76c6d86e1a87c51872697e97d91f7a38"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_vimeo/manifest.json",
+    "sha256": "de5beb113f7efd66b36afdc43a6e9fa9fb4b74f653d0e33f97ede7d1a5bfa9a5"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_youtube/background.js",
+    "sha256": "798b2256cc41bf351862a4403a92eb5688f14a9062b1799ac3580ad3e7e983a9"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_youtube/main.css",
+    "sha256": "be647fe4d2dee196db776d41ab4c6d70a594adb336f0c2870f20de6555a02f8f"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_youtube/main.js",
+    "sha256": "07b9107833e35e0c7a1a5e2dd82b423af1a3fc6cf8f9d4ac922c4b1d3c44ec05"
+  },
+  {
+    "path": "app/src/main/assets/extensions/fxr_youtube/manifest.json",
+    "sha256": "56075be3d130e33c683736899df1b51e65179e98a7b9f6fa8404bcb6d09c5b0c"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/background.js",
+    "sha256": "e4e8eef35f78ef6c0091e2c35f5d7904baa52b22d5323d8050c9deb794027ff3"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/content.js",
+    "sha256": "6edc26d11a3a0e6301d127a29697c98589354d16f14f9cdf336f982fd3ac27ef"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/dash_adapter.js",
+    "sha256": "cb0994b8b46e710411a4ba67a6f18af68972d887fa855f2a953fddcac564d241"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/delight_adapter.js",
+    "sha256": "7deb96cebc7dbfccbae716d7415a66b6f7bfa5e94020ca9b7c253d2f71979098"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/explicit_source.js",
+    "sha256": "a96738c2c4a1d4ad810f66bfa422caf5218b1dd50773e86dc3b3b3eb93947f6f"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/frame_agent.js",
+    "sha256": "3069f6608ba5fa2ea75222a9e90473388370f8cb85392ea074319e13d9cfb324"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/frame_router.js",
+    "sha256": "d9328874ccf7101b67b76b6772b76eea984fbfe50afe055c5413073eed0b7db7"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/legacy_shaka_adapter.js",
+    "sha256": "cd2b3e4cc8f2922083bacb5effd238a2c2d4f2079d392e6b2db2b7e614ffde45"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/manifest.json",
+    "sha256": "9f86a05c6927ee8c0c59d8ee71979f9b13d144dd125d54cbc8289edc64884d9f"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/media_adapters.js",
+    "sha256": "6fa0e724ceb51bbdec67f4afcd4c4667df06368cdfac9fa2215ace5c686afb71"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/metadata_background.js",
+    "sha256": "7ae55b905e8965fffdc15bf35ed32314e07c614d1f9cd9dbb0ee5dc0daa80773"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/metadata_rpc.js",
+    "sha256": "8a95376f581e85f46ce9ecc8aa2f8ab19cae89292d753315aadc75c00f7e1233"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/mgp_adapter.js",
+    "sha256": "e1437882379b34597affd944253d3c7df6c8a5d1770cae72b380bb43c6d763c0"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/mp4_metadata.js",
+    "sha256": "53171a41d22d7c76050c266dc472fa3584c38b6c65a73f47dece3cd7c5152f48"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/page_bridge.js",
+    "sha256": "b1afc37013b5aa6aea5345a9a847e9309f20d97c7a1e0ad62347990c2209054f"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/shaka_adapter.js",
+    "sha256": "8e732e4437846ab2531cf2b66a7e356560ca46fd5ddf9a27f5bd8dcaea21a29e"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/vendor/mp4box-2.5.0.LICENSE",
+    "sha256": "ebad0332150a08f37389158289d93ab2f70b0ee8717d1db9b3d002febc6c5047"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/vendor/mp4box-2.5.0.js",
+    "sha256": "f1dfd4b9d63052c55be0046dbd692b625b955560914fc6a9092c7e527b24376e"
+  },
+  {
+    "path": "app/src/main/assets/extensions/wolvic_vr_tools/xplayer_adapter.js",
+    "sha256": "f9ce2ad06fd65304d912ba11b8a0a9adeb176a02aa77cecf14de6022cd61c1d2"
+  }
+]

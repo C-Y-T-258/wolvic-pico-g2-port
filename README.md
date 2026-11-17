@@ -11,7 +11,45 @@ sites that fail on Firefox Reality 12.2 / Gecko 81.
 This is a community test build, not an Igalia or PICO product. It uses the old
 PicoVR native runtime, not the current `picoxr` OpenXR backend.
 
-## Current release
+## Project website
+
+The bilingual static showcase is prepared in [`site/`](site/index.html).
+It presents the port, tested scope, installation, an authentic historical
+headset screenshot and downloads. It can be opened locally without a server.
+GitHub Pages hosting uses the default GitHub address, with no paid domain.
+Deployment is pending review; see [website and discovery](docs/WEBSITE_AND_DISCOVERY.md).
+
+## Release candidate prepared on 2026-11-13
+
+The next release is prepared locally for review and has **not been published**.
+The source in this revision includes the candidate; the published 0052 APK
+remains available below as a fallback.
+
+The candidate adds a general VR/video extension menu, native projection
+handoff, per-page Quest UA fallback, YouPorn control compatibility, a native
+choice-hover fix and codec switching through player/protocol adapters.
+The codec menu appears only for at least two confirmed playable codec families
+belonging to the same video. Resolution-only alternatives do not count.
+Bilibili continues using its own player controls.
+
+```text
+File:         Wolvic-1.6.2-picog2-20261113-arm64-signed.apk
+Label:        Wolvic Pico G2
+Package:      io.github.cyt258.wolvic.picog2.stage2epagequestua
+Version:      1.6.2-picog2-20261113 (versionCode 203170001)
+Architecture: arm64-v8a
+```
+
+This package updates the previous test candidate and coexists with 0052.
+It does not migrate 0052's browser data. The release metadata cleanup has
+static verification; the new APK has not had a separate headset acceptance pass.
+
+See [release notes and the evidence matrix](docs/RELEASE_20261113.md),
+[installation and rollback](docs/INSTALL_ROLLBACK_20261113.md) and
+[the release audit](docs/RELEASE_AUDIT_20261113.md).
+Implemented adapter paths do not imply universal site compatibility.
+
+## Published fallback: 0052
 
 Build `0052` is the current device-tested production build. Its source patches
 and signed APK are published in the GitHub prerelease:
@@ -102,7 +140,12 @@ manager. This uses Android's on-device installer; it does not require the
 
 For a specific device among multiple ADB targets, add `-s SERIAL` after `adb`.
 
-## Using WebXR video
+## Using WebXR video on 0052
+
+The following instructions describe the historical 0052 path. The new
+candidate also includes a per-page Quest UA entry in its extension menu;
+site requirements can differ. Page fullscreen, native projection and site
+immersive VR are separate modes.
 
 > **Pornhub and similar VR video sites:** enable Wolvic's **Desktop mode** and
 > reload the page before entering immersive playback. Desktop mode is part of
@@ -263,10 +306,15 @@ Never install an unsigned APK. See [Pico SDK dependency](docs/PICO_SDK.md) and
   Wolvic `v1.6.2`
 - `patches/0002-...surface-resize.patch`: Surface/projection ordering fix
 - `patches/0003-...projection-menu.patch`: Pornhub compatibility and floating menu
+- `patches/0004-...release-20261113.patch`: subsequent native/extension changes,
+  codec adapters, tests and release identity
 - `build.ps1`: prerequisite checks, patch application and isolated build
 - `docs/PICO_SDK.md`: SDK checksum and redistribution boundary
 - `docs/VERIFICATION.md`: build and device evidence
 - `docs/PICO_ALPHA.md`: private Alpha metadata and G2 delivery limitation
+- `site/`: static Chinese/English showcase and search metadata
+- `tools/build-site.cjs`, `tools/verify-site.cjs`: dependency-free site generation
+  and validation
 
 ## Licensing and distribution
 
@@ -280,6 +328,7 @@ SDK files, R8 mapping, signing keys and credentials are not published.
 
 ## Project status
 
-Build `0052` is the current device-tested production build. Its three source
-patches are published for reproducibility, but this remains a focused legacy-device port,
-not an official Wolvic distribution or a promise of long-term website support.
+Build `0052` remains the published fallback. The next candidate is prepared
+for review with four ordered source patches. This remains a focused
+legacy-device port, not an official Wolvic distribution or a promise of
+long-term website support. See the dated evidence matrix for unfinished paths.

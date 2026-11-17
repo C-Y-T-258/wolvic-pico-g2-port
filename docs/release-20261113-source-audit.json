@@ -1,0 +1,8 @@
+{
+  "base": "14f4e485d45238908c2c5528fd8eb3a3698b82e7",
+  "patches": 4,
+  "sourceFilesVerified": 1367,
+  "extensionAssetsVerified": 28,
+  "textComparison": "Exact except CRLF/LF for non-asset text; assets compared byte for byte",
+  "privateSdkIncluded": false
+}

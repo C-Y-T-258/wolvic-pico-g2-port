@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wolvic for Pico G2 | Pico G2 / G2 4K VR 浏览器</title>
+  <meta name="description" content="面向 Pico G2 / G2 4K 的非官方 Wolvic 浏览器：GeckoView 128、原生 PicoVR、3DoF 与 WebXR 视频适配。下载 APK，查看安装方式、验证范围与源码。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://c-y-t-258.github.io/wolvic-pico-g2-port/">
+  <link rel="alternate" hreflang="zh-CN" href="https://c-y-t-258.github.io/wolvic-pico-g2-port/">
+  <link rel="alternate" hreflang="en" href="https://c-y-t-258.github.io/wolvic-pico-g2-port/en/">
+  <link rel="alternate" hreflang="x-default" href="https://c-y-t-258.github.io/wolvic-pico-g2-port/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Wolvic for Pico G2">
+  <meta property="og:title" content="Wolvic for Pico G2 | Pico G2 / G2 4K VR 浏览器">
+  <meta property="og:description" content="面向 Pico G2 / G2 4K 的非官方 Wolvic 浏览器：GeckoView 128、原生 PicoVR、3DoF 与 WebXR 视频适配。下载 APK，查看安装方式、验证范围与源码。">
+  <meta property="og:url" content="https://c-y-t-258.github.io/wolvic-pico-g2-port/">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="https://c-y-t-258.github.io/wolvic-pico-g2-port/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Wolvic for Pico G2 — GeckoView 128 / native PicoVR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Wolvic for Pico G2 | Pico G2 / G2 4K VR 浏览器">
+  <meta name="twitter:description" content="面向 Pico G2 / G2 4K 的非官方 Wolvic 浏览器：GeckoView 128、原生 PicoVR、3DoF 与 WebXR 视频适配。下载 APK，查看安装方式、验证范围与源码。">
+  <meta name="twitter:image" content="https://c-y-t-258.github.io/wolvic-pico-g2-port/assets/social-preview.png">
+  <meta name="theme-color" content="#075b48">
+  <link rel="icon" href="./assets/wolvic-icon.png" type="image/png">
+  <link rel="stylesheet" href="./assets/style.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Wolvic for Pico G2","alternateName":["Pico G2 Wolvic browser","Pico G2 浏览器"],"applicationCategory":"BrowserApplication","operatingSystem":"Android (Pico G2, arm64-v8a)","description":"面向 Pico G2 / G2 4K 的非官方 Wolvic 浏览器：GeckoView 128、原生 PicoVR、3DoF 与 WebXR 视频适配。下载 APK，查看安装方式、验证范围与源码。","url":"https://c-y-t-258.github.io/wolvic-pico-g2-port/","image":"https://c-y-t-258.github.io/wolvic-pico-g2-port/assets/wolvic-icon.png","softwareVersion":"1.6.2 / 0052","downloadUrl":"https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/download/picog2-1.6.2-0052/Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk","author":{"@type":"Person","name":"C-Y-T-258","url":"https://github.com/C-Y-T-258"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://github.com/C-Y-T-258/wolvic-pico-g2-port/blob/main/LICENSE","isBasedOn":"https://github.com/Igalia/wolvic"}</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="wrap topbar">
+    <a class="identity" href="./index.html"><img src="./assets/wolvic-icon.png" alt="" width="34" height="34">Wolvic for Pico G2</a>
+    <nav aria-label="主导航">
+      <a href="#results">适配成果</a><a href="#download">下载</a><a href="#install">安装</a>
+      <a href="./en/index.html" lang="en">English</a>
+      <a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port">GitHub</a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="title">
+      <img class="hero-image" src="./assets/headset-single-eye.webp" alt="历史 Wolvic 主页在 Pico G2 虚拟环境中运行的实机画面" width="1440" height="1040" fetchpriority="high">
+      <div class="hero-copy"><span class="eyebrow">Pico G2 / G2 4K · 社区移植</span><h1 id="title">Wolvic for Pico G2</h1><p>给 Pico G2 一个较新的网页与 VR 视频入口。基于 Wolvic 1.6.2、GeckoView 128 和原生 PicoVR。</p></div>
+      <p class="image-note">Pico G2 历史实机画面 · 单眼裁切 · 非最终候选截图</p>
+    </section>
+    <div class="wrap specbar"><div><strong>GeckoView 128</strong><span>浏览器引擎</span></div><div><strong>原生 PicoVR</strong><span>legacy 运行时</span></div><div><strong>3DoF</strong><span>头部追踪与手柄</span></div><div><strong>arm64-v8a</strong><span>实测 Android 8.1</span></div></div>
+    <section id="results" class="section"><div class="wrap">
+      <span class="eyebrow">01 / 适配成果</span><h2>为这款旧头显做了什么</h2><p class="section-lead">从原生显示、视频交接到网站控件，围绕 Pico G2 的实际使用路径做适配。项目独立于 Wolvic 和 PICO 官方。</p>
+      <div class="features"><article class="feature"><span class="number">01</span><h3>原生显示与 WebXR</h3><p>恢复 legacy PicoVR 后端，接入 GeckoView 128，保留 G2 的头部追踪和手柄输入。已有普通网页、视频纹理与沉浸 WebXR 的历史实机记录。</p></article><article class="feature"><span class="number">02</span><h3>视频投影与网页交接</h3><p>原生 2D、180°、360° 和立体投影，修复早期画面裁切与投影切换白屏。后续候选加入通用视频交接、单页 Quest UA 和共享播放器控件修复。</p></article><article class="feature"><span class="number">03</span><h3>有证据的编码选择</h3><p>新候选按播放器和协议识别同内容编码，区分编码与清晰度。至少两种编码确认可播放时才显示来源；切换验证、状态保护与失败恢复同时纳入。</p></article></div>
+    </div></section>
+    <section id="download" class="section download-band"><div class="wrap">
+      <div class="section-title"><div><span class="eyebrow">02 / 获取应用</span><h2>下载与版本</h2></div></div>
+      <div class="release-layout"><article>
+        <span class="status">已发布 · 历史实机验收</span><h3 class="release-title">Wolvic 1.6.2 / 0052</h3><p class="release-copy">0052 是目前公开下载版本。它包含 Pico G2 原生后端、WebXR 视频兼容和早期投影修复，不包含后续完整编码工具。</p>
+        <div class="actions"><a class="button" href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/download/picog2-1.6.2-0052/Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk">下载 0052 APK</a><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/releases/tag/picog2-1.6.2-0052">Release 与源码</a></div>
+        <p class="meta">约 110 MiB · arm64-v8a · 非官方预发布</p>
+      </article><article class="candidate"><span class="status pending">新候选 · 尚未公开发布</span><h3>2026-11-13 候选</h3><p>新增通用视频工具、编码切换、单页 UA 与控件修复。发布标识清理已完成；新名称 APK 尚未单独实机安装。</p><p>候选沿用旧测试包名，与 0052 并存。两者不共享或自动迁移浏览数据。</p><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/blob/main/docs/RELEASE_20261113.md">候选说明与证据</a></article></div>
+    </div></section>
+    <section id="coverage" class="section"><div class="wrap">
+      <span class="eyebrow">03 / 证据与边界</span><h2>验证到了哪里</h2><p class="section-lead">下面区分已发布版本、后续候选与受控测试。播放器适配代码存在，不等于所有网站都可切换编码。</p>
+      <div class="table-scroll" role="region" aria-label="验证到了哪里" tabindex="0"><table><thead><tr><th scope="col">路线</th><th scope="col">已有证据</th><th scope="col">边界</th></tr></thead><tbody><tr><th scope="row">PicoVR / WebXR</th><td data-label="已有证据">0052 有头显播放、追踪、控制输入与纹理验收记录。</td><td data-label="边界">仅 Pico G2 系列范围；不是当前 OpenXR 构建。</td></tr><tr><th scope="row">视频交接与投影</th><td data-label="已有证据">Hamezo 等路径有历史原生交接与用户回归；后续候选保留实现。</td><td data-label="边界">网页全屏、原生投影与网站 VR 分别处理；不承诺所有特殊投影模型。</td></tr><tr><th scope="row">Video.js / VHS</th><td data-label="已有证据">Eporner 自然网页 H.264 / AV1 双向切换。</td><td data-label="边界">有一次清单超时记录；不能外推成所有视频均成功或播放性能提升。</td></tr><tr><th scope="row">xPlayer</th><td data-label="已有证据">xHamster 历史自然双编码与质量模式验证。</td><td data-label="边界">最终 APK 未逐项重跑；视频本身需提供双编码。</td></tr><tr><th scope="row">HTML / hls.js / dash.js</th><td data-label="已有证据">受控设备播放器、状态和失败恢复测试。</td><td data-label="边界">不等于任意自然网站双编码已验证。</td></tr><tr><th scope="row">Shaka / MGP / Delight</th><td data-label="已有证据">有受控切换与自然页面绑定、发现等不同层次证据。</td><td data-label="边界">真实双编码、音轨、质量映射及 VR 组合仍各有缺口。</td></tr><tr><th scope="row">B站 / 普通网页</th><td data-label="已有证据">保持站内控制；已有普通使用回归反馈。</td><td data-label="边界">最终一轮未完成所有质量与 VR 组合验收。</td></tr></tbody></table></div>
+      <p class="evidence-note"><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/blob/main/docs/RELEASE_20261113.md">查看完整覆盖表和已知限制</a></p>
+    </div></section>
+    <section id="install" class="section"><div class="wrap">
+      <span class="eyebrow">04 / 安装</span><h2>安装到 Pico G2</h2><p class="section-lead">使用头显系统安装器，或从电脑通过 ADB 安装。下载后先核对 SHA256。</p>
+      <div class="install-grid"><ol class="steps"><li><strong>下载并核对 APK</strong><p>在头显浏览器下载，或从电脑传到头显的 Download 目录。</p></li><li><strong>打开系统安装器</strong><p>按系统提示允许安装来源，也可使用 ADB 命令从电脑安装。</p></li><li><strong>启动并测试普通网页</strong><p>0052 在应用列表显示为 Wolvic Pico G2 测试版。先确认普通网页和视频，再尝试网站沉浸入口。</p></li></ol>
+      <div><pre class="terminal"><code>adb devices
+adb install -r .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk</code></pre><p class="meta">版本提示：下面命令安装公开的 0052。新候选使用独立测试包名，安装与回滚细节单独说明。</p><p class="meta"><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/blob/main/README.zh-CN.md">0052 完整安装与回滚说明</a></p>
+      <div class="checksum">0052 APK · SHA256<code>CC1736358B02ABD98FE6AEF9E10A8203C1EA8B5BFA9B8BDAFB6157492AB929F3</code></div></div></div>
+    </div></section>
+    <section class="section gallery"><div class="wrap"><div class="section-title"><h2>在头显里运行</h2></div>
+      <figure><a href="./assets/headset-stereo.webp"><img src="./assets/headset-stereo.webp" alt="Wolvic 0037 在 Pico G2 上运行的双眼实机截屏" width="1920" height="1067" loading="lazy"></a><figcaption>历史 0037 构建的 Pico G2 启动页实机截图，仅作移植运行展示，不代表新版界面或站点兼容验收。原始画面保留双眼布局与 G2 截屏的色彩特征。</figcaption></figure>
+    </div></section>
+    <section id="faq" class="section"><div class="wrap"><h2>下载前常见问题</h2><div class="faq" style="margin-top:28px"><details><summary>这是 Pico G2 的 Firefox Reality 替代浏览器吗？</summary><p>可以作为一个社区替代方案。它使用 Wolvic 1.6.2 与 GeckoView 128，为旧 Pico G2 提供较新的网页引擎，但不保证每个现代网站或流媒体服务兼容。</p></details><details><summary>Pico 4、Neo、G3 或 Quest 能装吗？</summary><p>这个移植针对 Pico G2 / G2 4K 系列。实际测试设备为 Android 8.1 的 G2，只有 arm64 构建。其他设备未验证，新头显应优先使用官方适配。</p></details><details><summary>为什么有时没有媒体来源菜单？</summary><p>来源选择是新候选功能，0052 没有完整实现。候选只在同一视频至少两种真实、可播放编码确认后显示。单编码、只有分辨率差异、身份不明或设备不支持时隐藏。</p></details><details><summary>能保证 H.264 或 AV1 播放更流畅吗？</summary><p>不能。网站、网络、分辨率、码率和设备解码能力都会影响体验。当前记录证明部分路径可以切换，不构成同规格流畅度对比。</p></details><details><summary>遇到黑屏或视频无法播放怎么办？</summary><p>先区分网络与解码问题，再测试普通视频。历史媒体资源异常曾通过完整重启头显恢复；这不是应用已永久修复资源问题的保证。</p></details><details><summary>这是 Wolvic 或 PICO 官方产品吗？</summary><p>不是。这是社区旧设备移植，采用 legacy PicoVR，而非当前 picoxr OpenXR 后端。源码沿用 MPL-2.0，第三方组件保留各自许可。</p></details></div></div></section>
+  </main>
+  <footer class="wrap footer"><p>非官方社区移植。Wolvic 及相关标识属于各自权利人。验证范围以项目记录为准，网站变化可能影响兼容性。</p><div class="footer-links"><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port">源代码</a><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/issues">反馈问题</a><a href="https://github.com/C-Y-T-258/wolvic-pico-g2-port/blob/main/docs/VERIFICATION.md">验证记录</a></div></footer>
+</body>
+</html>

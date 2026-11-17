@@ -1,0 +1,53 @@
+name: Publish project website
+
+on:
+  push:
+    branches: [main]
+    paths: [site/**, tools/build-site.cjs, tools/verify-site.cjs, .github/workflows/pages.yml]
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+      - name: Build with the published download
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PUBLISHED="$(gh release view picog2-1.6.2-20261113 --repo "$GITHUB_REPOSITORY" --json isDraft,assets --jq '(.isDraft == false) and any(.assets[]; .name == "Wolvic-1.6.2-picog2-20261113-arm64-signed.apk")' 2>/dev/null || true)"
+          if [ "$PUBLISHED" = "true" ]; then
+            node tools/build-site.cjs --published-candidate
+          else
+            node tools/build-site.cjs
+          fi
+      - run: node tools/verify-site.cjs
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: site
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

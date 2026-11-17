@@ -1,0 +1,23 @@
+{
+  "baseline": "Wolvic-stage2g-codec-completion-v2-signed.apk",
+  "baselineSha256": "94756694A5456D6E7F6B7FB759E6C93C74A2C7499E91C6D83B8921C7C1C4763F",
+  "candidate": "Wolvic-1.6.2-picog2-20261113-arm64-signed.apk",
+  "candidateSha256": "AFA8E6451E1E5F5871497729A161F7834606E6FE2612281A59B1F55C42A8B950",
+  "comparedEntries": 2614,
+  "changedEntries": [
+    "AndroidManifest.xml",
+    "assets/dexopt/baseline.prof",
+    "classes2.dex",
+    "META-INF/MANIFEST.MF",
+    "META-INF/WOLVIC-P.RSA",
+    "META-INF/WOLVIC-P.SF",
+    "resources.arsc"
+  ],
+  "removedEntries": [],
+  "functionalAssetsAndNativeLibrariesIdentical": true,
+  "excludedGeneratedAssets": [
+    "assets/dexopt/"
+  ],
+  "publishedExtensionAssetsVerified": 28,
+  "deviceAcceptanceForRelabelledApk": false
+}

@@ -31,7 +31,8 @@ $expectedSdk = 'D3CF54F0A3A20033DACB49B91F14376DB32E8B2B9F5CCA5E8EA72E37892BD53C
 $patchPaths = @(
     (Join-Path $PSScriptRoot 'patches\0001-wolvic-1.6.2-picog2-gecko128-final-source-only.patch'),
     (Join-Path $PSScriptRoot 'patches\0002-restore-early-vr-video-resize-order.patch'),
-    (Join-Path $PSScriptRoot 'patches\0003-add-pornhub-projection-compatibility-menu.patch')
+    (Join-Path $PSScriptRoot 'patches\0003-add-pornhub-projection-compatibility-menu.patch'),
+    (Join-Path $PSScriptRoot 'patches\0004-generic-codec-switching-and-release-20261113.patch')
 )
 
 foreach ($path in @($RepoPath, $WorkspaceRoot, $PicoSdkAar, $JavaHome, $GradleBat, $AndroidSdk, $NdkPath) + $patchPaths) {
@@ -62,18 +63,32 @@ if ($LASTEXITCODE -ne 0) {
     throw 'Submodule initialization failed'
 }
 
+$lastPatch = $patchPaths[-1]
+& git -C $RepoPath apply --ignore-space-change --reverse --check $lastPatch 2>$null
+$candidateAlreadyApplied = $LASTEXITCODE -eq 0
 foreach ($patchPath in $patchPaths) {
-    & git -C $RepoPath apply --reverse --check $patchPath 2>$null
+    if ($candidateAlreadyApplied) {
+        continue
+    }
+    & git -C $RepoPath apply --ignore-space-change --reverse --check $patchPath 2>$null
     if ($LASTEXITCODE -eq 0) {
         continue
     }
-    & git -C $RepoPath apply --check $patchPath
+    & git -C $RepoPath apply --ignore-space-change --check $patchPath
     if ($LASTEXITCODE -ne 0) {
         throw "Patch preflight failed: $patchPath"
     }
-    & git -C $RepoPath apply $patchPath
+    & git -C $RepoPath apply --ignore-space-change $patchPath
     if ($LASTEXITCODE -ne 0) {
         throw "Patch application failed: $patchPath"
+    }
+}
+
+$sourceVerifier = Join-Path $PSScriptRoot 'verify-source.cjs'
+if (Get-Command node -ErrorAction SilentlyContinue) {
+    & node $sourceVerifier $RepoPath
+    if ($LASTEXITCODE -ne 0) {
+        throw 'Release asset verification failed'
     }
 }
 

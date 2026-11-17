@@ -1,8 +1,20 @@
 # Verification record
 
+## Candidate prepared on 2026-11-13
+
+The current source includes four patches in numeric order. Patch 0004 contains
+the post-0052 native and extension changes, codec adapters and their tests.
+Use a fresh upstream checkout for a new build. The historical sections below
+describe 0052, not validation of the next APK.
+
+See [candidate evidence](RELEASE_20261113.md),
+[release audit](RELEASE_AUDIT_20261113.md) and
+[extension asset hashes](release-20261113-assets.json).
+The candidate's package ID differs from 0052.
+
 ## Reproducible source boundary
 
-The public source release is based on Wolvic `v1.6.2`, commit
+The 0052 public source release is based on Wolvic `v1.6.2`, commit
 `14f4e485d45238908c2c5528fd8eb3a3698b82e7`. Apply the three patches in numeric
 order. The final extension assets must hash to:
 

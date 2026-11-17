@@ -11,7 +11,40 @@
 这不是 Igalia 或 PICO 官方产品。它使用旧版 PicoVR 原生运行时，不是当前
 Wolvic 的 `picoxr` OpenXR 后端。
 
-## 当前版本
+## 项目展示页
+
+中英双语静态展示页已准备在 [`site/`](site/index.html)，包含适配成果、验证范围、
+安装方式、真实历史头显截图和下载入口，可直接在本地打开。托管使用 GitHub
+Pages 默认地址，不需要服务器或付费域名，目前待审阅后部署。详见
+[展示页与可发现性说明](docs/WEBSITE_AND_DISCOVERY.md)。
+
+## 2026-11-13 发布候选
+
+新版正在本地准备审阅，**尚未公开发布**。本次源码包含候选实现，已公开的
+0052 下载继续保留为回退版本。
+
+候选新增通用 VR/视频扩展菜单、原生投影交接、单页 Quest UA 回退、YouPorn
+共享控件兼容、原生下拉选项 hover 修复，以及按播放器/协议实现的编码发现和
+安全切换。只有同一视频至少两种已确认可播放编码时才显示媒体来源，单纯的
+清晰度差异不算多编码。B站继续使用站内控制。
+
+```text
+文件：       Wolvic-1.6.2-picog2-20261113-arm64-signed.apk
+应用名称：   Wolvic Pico G2
+包名：       io.github.cyt258.wolvic.picog2.stage2epagequestua
+版本：       1.6.2-picog2-20261113（versionCode 203170001）
+架构：       arm64-v8a
+```
+
+沿用测试候选包名，以便覆盖升级保留其数据，与 0052 并存，不迁移 0052 数据。
+发布标识清理做静态核对，新 APK 尚未单独进行头显安装验收。
+
+详见[发布说明与覆盖表](docs/RELEASE_20261113.md)、
+[安装回滚说明](docs/INSTALL_ROLLBACK_20261113.md)和
+[发布审计](docs/RELEASE_AUDIT_20261113.md)。适配器已实现不等于所有网站通过；
+自然网页、受控播放器和历史验收的证据分别列明。
+
+## 已发布回退版本：0052
 
 `0052` 是当前完成实机验收的正式构建，源码补丁和签名 APK 已发布在 GitHub
 prerelease：
@@ -94,7 +127,10 @@ adb push .\Wolvic-1.6.2-gecko128-picog2-arm64-release-0052-production-signed.apk
 
 如果电脑同时连接多台 ADB 设备，请在 `adb` 后加入 `-s 设备序列号`。
 
-## 如何使用 WebXR 视频
+## 0052 如何使用 WebXR 视频
+
+以下是 0052 的历史验证路径。新版还提供扩展菜单中的单页 Quest UA 入口，
+不同页面的要求可能不同。网页全屏、原生投影与网站沉浸 VR 是不同模式。
 
 > **Pornhub 及类似 VR 视频网站：请先开启 Wolvic 的“桌面模式”，然后刷新
 > 页面，再进入沉浸播放。** 桌面模式是本项目在 Pico G2 上完成验证时使用的
@@ -234,10 +270,15 @@ git -C D:\work\wolvic-v1.6.2 config core.autocrlf false
 
 - `patches/0001-...source-only.patch`：基于 Wolvic `v1.6.2` 的累计移植补丁
 - `patches/0002-...surface-resize.patch`：Surface/投影时序修复
+- `patches/0003-...projection-menu.patch`：兼容层和悬浮投影菜单
+- `patches/0004-...release-20261113.patch`：后续原生/扩展修改、编码适配器、
+  自动测试和发布标识
 - `build.ps1`：前置条件检查、补丁应用和隔离构建
 - `docs/PICO_SDK.md`：SDK 校验值和再分发边界
 - `docs/VERIFICATION.md`：构建与实机证据
 - `docs/PICO_ALPHA.md`：私有 Alpha 元数据和 G2 分发限制
+- `site/`：中英静态展示页及搜索元数据
+- `tools/build-site.cjs`、`tools/verify-site.cjs`：无需额外依赖的网页生成与核对
 
 ## 许可与分发
 
@@ -249,5 +290,6 @@ APK 包含 legacy PicoVR SDK 等第三方运行时组件。下载 prerelease 不
 
 ## 项目状态
 
-`0052` 是当前经过实机验收的正式构建，三个源码补丁均已公开以便复现，但它仍
-是面向旧设备的专项移植，不是 Wolvic 官方发行版，也不承诺长期兼容所有网站。
+`0052` 仍是已公开的回退版本；新版以四个顺序补丁准备审阅。它仍是面向旧设备
+的专项移植，不是 Wolvic 官方发行版，也不承诺长期兼容所有网站。未完成范围
+以带日期的覆盖表为准。

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://c-y-t-258.github.io/wolvic-pico-g2-port/sitemap.xml
