@@ -284,6 +284,8 @@ if (site !== path.join(root, 'site')) {
   fs.cpSync(path.join(root, 'site/assets'), path.join(site, 'assets'), { recursive: true });
   fs.copyFileSync(path.join(root, 'site/google5e91971bbff7be04.html'),
     path.join(site, 'google5e91971bbff7be04.html'));
+  fs.copyFileSync(path.join(root, 'site/BingSiteAuth.xml'),
+    path.join(site, 'BingSiteAuth.xml'));
 }
 fs.writeFileSync(path.join(site, 'index.html'), render('zh'));
 fs.writeFileSync(path.join(site, 'en/index.html'), render('en'));
