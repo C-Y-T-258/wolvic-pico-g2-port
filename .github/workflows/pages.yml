@@ -3,7 +3,7 @@ name: Publish project website
 on:
   push:
     branches: [main]
-    paths: [site/**, tools/build-site.cjs, tools/verify-site.cjs, .github/workflows/pages.yml]
+    paths: [site/**, tools/build-site.cjs, tools/verify-site.cjs, tools/indexnow.json, tools/submit-indexnow.ps1, .github/workflows/pages.yml]
   workflow_dispatch:
   release:
     types: [published]
@@ -51,3 +51,21 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+  notify-search:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Notify IndexNow of the two showcase pages
+        id: indexnow
+        continue-on-error: true
+        shell: pwsh
+        run: ./tools/submit-indexnow.ps1
+      - name: Record notification outcome
+        if: always()
+        env:
+          NOTIFICATION_OUTCOME: ${{ steps.indexnow.outcome }}
+        run: |
+          echo "IndexNow notification: $NOTIFICATION_OUTCOME. See the notification step for the HTTP response. Receipt is not proof of indexing." >> "$GITHUB_STEP_SUMMARY"

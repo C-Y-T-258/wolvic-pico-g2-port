@@ -6,6 +6,11 @@ const site = outputOption >= 0 ? path.resolve(process.argv[outputOption + 1]) : 
 const publishedCandidate = process.argv.includes('--published-candidate');
 const repo = 'https://github.com/C-Y-T-258/wolvic-pico-g2-port';
 const base = 'https://c-y-t-258.github.io/wolvic-pico-g2-port/';
+const indexNow = JSON.parse(fs.readFileSync(path.join(__dirname, 'indexnow.json'), 'utf8'));
+if (!/^[a-zA-Z0-9-]{8,128}$/.test(indexNow.key) ||
+    indexNow.keyLocation !== `${base}${indexNow.key}.txt`) {
+  throw new Error('IndexNow ownership file must stay within the project website.');
+}
 const tag = publishedCandidate ? 'picog2-1.6.2-20261113' : 'picog2-1.6.2-0052';
 const release = `${repo}/releases/tag/${tag}`;
 const file = publishedCandidate ? 'Wolvic-1.6.2-picog2-20261113-arm64-signed.apk'
@@ -200,6 +205,7 @@ function render(locale) {
   <meta name="description" content="${escape(t.description)}">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${canonical}">
+  <link rel="sitemap" type="application/xml" href="${base}sitemap.xml">
   <link rel="alternate" hreflang="zh-CN" href="${base}">
   <link rel="alternate" hreflang="en" href="${base}en/">
   <link rel="alternate" hreflang="x-default" href="${base}">
@@ -280,6 +286,7 @@ if (site !== path.join(root, 'site')) {
 fs.writeFileSync(path.join(site, 'index.html'), render('zh'));
 fs.writeFileSync(path.join(site, 'en/index.html'), render('en'));
 fs.writeFileSync(path.join(site, '.nojekyll'), '');
+fs.writeFileSync(path.join(site, `${indexNow.key}.txt`), indexNow.key + '\n');
 fs.writeFileSync(path.join(site, 'release-state.json'), JSON.stringify({ publishedCandidate, tag, apk, sha256: hash }, null, 2) + '\n');
 fs.writeFileSync(path.join(site, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`);
 fs.writeFileSync(path.join(site, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>

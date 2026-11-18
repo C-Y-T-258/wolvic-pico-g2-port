@@ -38,3 +38,25 @@
 后续复核可重复以上精确查询，再尝试 `Pico G2 浏览器`、
 `Pico G2 Firefox Reality alternative` 等一般查询，分别记录结果链接和摘要日期。
 站长平台提交需要相应账号权限，只有实际提交并取得结果后才能补写成功记录。
+
+## 后续推进：以展示网页为直接搜索入口
+
+用户追加要求：搜索结果直接进入成果展示网页，而不是仅找到 GitHub 仓库。
+主动通知和后续站长工具操作均以这两个 URL 为目标：
+
+- 中文：`https://c-y-t-258.github.io/wolvic-pico-g2-port/`
+- 英文：`https://c-y-t-258.github.io/wolvic-pico-g2-port/en/`
+
+部署链路已加入 IndexNow 通知：先核对线上项目路径的公开所有权文本，再提交
+这两个网页地址。构建前的代码准备不算提交成功，实际 HTTP 回执需另行记录。
+每次成功部署通知一次，不做定时重复提交。具体机制与官方资料见
+[网站说明](WEBSITE_AND_DISCOVERY.md#active-notification-for-the-showcase)。
+
+本地使用 Googlebot、bingbot 和 OAI-SearchBot User-Agent 请求中文页均返回
+HTTP 200，没有 `X-Robots-Tag` 拦截，页面声明允许索引。域名根 `/robots.txt`
+返回 404，没有观察到禁爬规则。这只证明该客户端测试能访问，不能代替真实爬虫
+从其网络抓取的证明，也不能称为“搜索引擎已抓取”。
+
+Google Search Console 可以使用当前已登录账号，但尚未添加本项目 URL 前缀；
+Bing Webmaster Tools 当前显示登录入口。没有代为创建账号、授权第三方应用、
+提交 sitemap 或申请索引的成功记录。

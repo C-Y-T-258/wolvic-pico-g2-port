@@ -79,6 +79,44 @@ The [2026-11-18 discovery check](DISCOVERY_CHECK_20261118.md) records actual
 queries and their limits. A repository result was returned with older 0052
 copy; indexing of the new website and refreshed content remains unconfirmed.
 
+## Active notification for the showcase
+
+The two showcase URLs, rather than GitHub repository URLs, are listed in
+`tools/indexnow.json`. After successful Pages deployment, a read-only checkout
+job verifies the live ownership file and sends those URLs to IndexNow.
+`tools/submit-indexnow.ps1` can also be run manually with PowerShell 7.
+There is no periodic resubmission or account credential in this mechanism.
+
+The IndexNow key is a public site-ownership proof served as a text file under
+the project path. It does not grant GitHub or search-account access. This
+scoped location authorizes only URLs below `/wolvic-pico-g2-port/`, not other
+repositories on the account's Pages host. Both build modes generate the key.
+The public JSON is the notification payload, not a private API secret.
+
+HTTP 200 means the notification was received. HTTP 202 additionally means key
+validation is pending. Neither response proves indexing or ranking. The
+notification job retains its response in Actions; notification failure does
+not undo or mislabel a successful Pages deployment.
+
+IndexNow shares notifications among participating engines. It is not a Google
+Search Console submission and is not an instruction to AI assistants.
+Google URL-prefix verification and sitemap submission use Search Console.
+Do not create a DNS property for the shared `github.io` domain or claim to own
+GitHub's domain.
+
+Official references:
+
+- [IndexNow protocol and scoped key locations](https://www.indexnow.org/documentation)
+- [Google sitemap submission](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)
+- [Google AI features and site eligibility](https://developers.google.com/search/docs/appearance/ai-features)
+- [OpenAI search crawler documentation](https://platform.openai.com/docs/bots)
+
+Allowing search crawlers and publishing useful static content support
+eligibility; they do not ensure recommendation. Google states that no extra
+AI text file or special AI schema is required for its AI search features.
+OpenAI distinguishes OAI-SearchBot search crawling from model-training
+crawling. This project does not change training preferences as an SEO measure.
+
 ## Content and image provenance
 
 The main screenshot is the historical build 0037 Pico G2 startup capture,
