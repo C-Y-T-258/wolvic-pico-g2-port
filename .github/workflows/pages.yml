@@ -58,7 +58,21 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Check whether showcase content changed
+        id: changes
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REVISION: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT_NAME" != "push" ] || [ "$BASE_REVISION" = "0000000000000000000000000000000000000000" ] || ! git diff --quiet "$BASE_REVISION" HEAD -- site/index.html site/en/index.html site/assets tools/indexnow.json; then
+            echo "notify=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "notify=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Notify IndexNow of the two showcase pages
+        if: steps.changes.outputs.notify == 'true'
         id: indexnow
         continue-on-error: true
         shell: pwsh

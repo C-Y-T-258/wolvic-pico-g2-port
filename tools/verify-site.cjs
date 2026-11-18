@@ -10,6 +10,8 @@ assert.match(indexNow.key, /^[a-zA-Z0-9-]{8,128}$/);
 assert.equal(indexNow.keyLocation, `${base}${indexNow.key}.txt`);
 assert.deepEqual(indexNow.urlList, [base, `${base}en/`]);
 assert.equal(fs.readFileSync(path.join(root, `${indexNow.key}.txt`), 'utf8').trim(), indexNow.key);
+assert.equal(fs.readFileSync(path.join(root, 'google5e91971bbff7be04.html'), 'utf8').trim(),
+  'google-site-verification: google5e91971bbff7be04.html');
 let links = 0;
 for (const name of ['index.html', 'en/index.html']) {
   const file = path.join(root, name), html = fs.readFileSync(file, 'utf8');

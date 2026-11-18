@@ -282,6 +282,8 @@ adb install -r .\\${file}</code></pre><p class="meta">${t.installNote}</p><p cla
 fs.mkdirSync(path.join(site, 'en'), { recursive: true });
 if (site !== path.join(root, 'site')) {
   fs.cpSync(path.join(root, 'site/assets'), path.join(site, 'assets'), { recursive: true });
+  fs.copyFileSync(path.join(root, 'site/google5e91971bbff7be04.html'),
+    path.join(site, 'google5e91971bbff7be04.html'));
 }
 fs.writeFileSync(path.join(site, 'index.html'), render('zh'));
 fs.writeFileSync(path.join(site, 'en/index.html'), render('en'));
