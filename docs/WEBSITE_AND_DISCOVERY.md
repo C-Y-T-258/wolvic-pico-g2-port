@@ -112,6 +112,13 @@ fetch report and the individual indexing-request service returned errors.
 The [discovery record](DISCOVERY_CHECK_20261118.md) distinguishes these partial
 results from actual indexing; no successful indexing request is claimed.
 
+The same project-path resource was also verified in Bing Webmaster Tools on
+2026-11-18 using its downloaded `BingSiteAuth.xml`. Both build modes retain
+that file. Bing accepted the sitemap (initial status: Processing) and confirmed
+successful submission of the two showcase URLs. Its live homepage test reported
+that the URL can be indexed, with no SEO/GEO issues found. The index report
+still showed discovered but not crawled; submission is not proof of indexing.
+
 Official references:
 
 - [IndexNow protocol and scoped key locations](https://www.indexnow.org/documentation)
