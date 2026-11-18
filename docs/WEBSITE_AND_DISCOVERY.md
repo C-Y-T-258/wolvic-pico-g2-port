@@ -104,6 +104,14 @@ Google URL-prefix verification and sitemap submission use Search Console.
 Do not create a DNS property for the shared `github.io` domain or claim to own
 GitHub's domain.
 
+The project URL-prefix property was verified on 2026-11-18 using the HTML file
+served from the project path. The file is retained in `site/` and copied to
+alternate build outputs. Google's live test found the Chinese homepage
+eligible for indexing. Sitemap submission was accepted, but its subsequent
+fetch report and the individual indexing-request service returned errors.
+The [discovery record](DISCOVERY_CHECK_20261118.md) distinguishes these partial
+results from actual indexing; no successful indexing request is claimed.
+
 Official references:
 
 - [IndexNow protocol and scoped key locations](https://www.indexnow.org/documentation)
